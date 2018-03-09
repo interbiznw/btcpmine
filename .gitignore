@@ -57,3 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
+# mining programs
+nheqminer_nanopool_v0.4b/

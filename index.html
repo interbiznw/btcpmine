@@ -33,8 +33,10 @@
 						style="margin-bottom: 10px;"
 						v-model="address"
 					 >
- 					<button type="submit" class="btn btn-lg btn-success"><span class="oi oi-play-circle" style="top: 4px;"></span> Start Mining</button>
-					<button type="submit" class="btn btn-lg btn-danger hidden"><span class="oi oi-media-stop" style="top: 4px;"></span> Stop Mining</button>
+ 					<button type="submit" v-on:click="startMining" class="btn btn-lg btn-success">Start Mining</button>
+					<button type="submit" class="btn btn-lg btn-danger hidden">Stop Mining</button>
+
+					<pre>{{output}}</pre>
 				</div>
       </main>
 
@@ -45,26 +47,6 @@
       </footer>
     </div>
 
-		<script>
-			const Vue = require("vue/dist/vue.common.js");
-			const base58check = require('base58check');
-
-			const app = new Vue({
-				el: "main",
-				data: {
-					address: ""
-				},
-				computed: {
-					addressIsValid() {
-						try {
-							const check = base58check.decode(this.address, 'hex');
-							return check.prefix === '1c';
-						} catch (err) {
-							return false;
-						}
-					}
-				}
-			});
-		</script>
+		<script src='scripts/app.js'></script>
   </body>
 </html>
