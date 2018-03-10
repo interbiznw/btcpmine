@@ -25,7 +25,7 @@
         </div>
       </header>
 
-      <main role="main" class="inner cover">
+      <main role="main" class="inner cover" v-if="downloaded">
 				<div class="form-group">
 					<input type="text" placeholder="Your ZEC Address (e.g. t1hASvMj8e6TXWryuB3L5TKXJB7XfNioZP3)"
 						class="form-control"
@@ -47,6 +47,8 @@
       </footer>
     </div>
 
-		<script src='scripts/app.js'></script>
+    <script>
+    require("./scripts/app.js");
+    </script>
   </body>
 </html>
