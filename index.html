@@ -31,10 +31,10 @@
 						class="form-control"
 						v-bind:class="{ 'is-valid': addressIsValid, 'is-invalid': !addressIsValid}"
 						style="margin-bottom: 10px;"
-						v-model="address"
+						v-model.trim="address"
 					 >
- 					<button type="submit" v-on:click="startMining" class="btn btn-lg btn-success">Start Mining</button>
-					<button type="submit" class="btn btn-lg btn-danger hidden">Stop Mining</button>
+ 					<button type="submit" v-on:click="startMining" v-if="!isMining" class="btn btn-lg btn-success">Start Mining</button>
+					<button type="submit" v-on:click="stopMining" v-else class="btn btn-lg btn-danger">Stop Mining</button>
 
 					<pre>{{output}}</pre>
 				</div>
