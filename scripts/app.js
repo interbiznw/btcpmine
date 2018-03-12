@@ -1,4 +1,5 @@
 /* global localStorage */
+/* eslint capitalized-comments: ["error", "never"] */
 
 const fs = require('fs');
 const path = require('path');
@@ -37,6 +38,7 @@ const app = new Vue({
 			miner.stderr.on('data', data => {
 				this.output += data;
 			});
+
 			this.isMining = true;
 		},
 		stopMining() {
@@ -59,14 +61,14 @@ const app = new Vue({
 
 async function created() {
 	const minerInfo = this.minerInfo;
-
 	const minerFolder = path.join(__dirname, '/../miner');
 	const zipPath = path.join(__dirname, '/../miner.zip');
+
+	// download zip and save to file
 	const zipStream = fs.createWriteStream(zipPath);
+	got.stream(minerInfo.url).pipe(zipStream);
 
-	got.stream(minerInfo.url)
-		.pipe(zipStream);
-
+	// when done downloading, unzip
 	zipStream.on('close', async () => {
 		await extract(zipPath, {dir: minerFolder});
 		this.downloaded = true;
