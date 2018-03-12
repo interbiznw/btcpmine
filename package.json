@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "linter": "xo",
     "start": "electron ."
   },
   "repository": {
@@ -27,5 +28,8 @@
     "unzip": "^0.1.11",
     "vue": "^2.5.14",
     "yauzl": "^2.9.1"
+  },
+  "devDependencies": {
+    "xo": "^0.20.3"
   }
 }
