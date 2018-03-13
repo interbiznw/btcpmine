@@ -36,7 +36,8 @@ const app = new Vue({
 
 			const minerPath = path.join(__dirname, '/../miner/',
 				this.minerInfo.binary);
-			miner = spawn(minerPath, this.minerInfo.arguments(this.address, this.mode));
+			miner = spawn(minerPath,
+				this.minerInfo.arguments(this.address, this.mode));
 
 			const handleOutput = data => {
 				this.output += data;

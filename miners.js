@@ -20,17 +20,13 @@ module.exports = {
 			};
 
 			args.push(...modes[mode]);
-			console.log(args);
-
 			return args;
 		},
 		parse: (minerOutput, line) => {
 			const parts = line.split(' ');
 
-			console.log(parts);
 			if (parts.length > 7 && parts[7].startsWith('Sols/s'))
 				minerOutput.sols = Number(parts[6]);
-
 			if (parts.length > 4 && parts[3] === 'Accepted' && parts[4] === 'share')
 				minerOutput.shares++;
 		}
