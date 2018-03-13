@@ -1,7 +1,7 @@
 /* global localStorage */
+/* eslint curly: ["error", "multi"] */
 /* eslint capitalized-comments: ["error", "never"] */
 
-const fs = require('fs');
 const path = require('path');
 const util = require('util');
 const {spawn} = require('child_process');
@@ -9,6 +9,7 @@ const base58check = require('base58check');
 const got = require('got');
 const extract = util.promisify(require('extract-zip'));
 const Vue = require('vue/dist/vue.common.js');
+const fs = require('mz/fs');
 
 const miners = require('./../miners.js');
 
@@ -21,7 +22,10 @@ const app = new Vue({
 		address: localStorage.getItem('address') || '',
 		output: '',
 		isMining: false,
-		downloaded: false
+		downloaded: false,
+		minerOutput: {
+			sols: 0
+		}
 	},
 	methods: {
 		startMining() {
@@ -37,6 +41,11 @@ const app = new Vue({
 
 			miner.stderr.on('data', data => {
 				this.output += data;
+
+				const output = this.minerInfo.parse(data.toString());
+
+				if (typeof output === 'object')
+					this.minerOutput = output;
 			});
 
 			this.isMining = true;
@@ -45,6 +54,10 @@ const app = new Vue({
 			miner.kill('SIGINT');
 			this.output = '';
 			this.isMining = false;
+
+			this.minerOutput = {
+				sols: 0
+			};
 		}
 	},
 	computed: {
@@ -64,6 +77,13 @@ async function created() {
 	const minerFolder = path.join(__dirname, '/../miner');
 	const zipPath = path.join(__dirname, '/../miner.zip');
 
+	// check if miner exists
+	const minerPath = path.join(__dirname, '/../miner/', this.minerInfo.binary);
+	if (await fs.exists(minerPath)) {
+		this.downloaded = true;
+		return;
+	}
+
 	// download zip and save to file
 	const zipStream = fs.createWriteStream(zipPath);
 	got.stream(minerInfo.url).pipe(zipStream);
@@ -71,6 +91,7 @@ async function created() {
 	// when done downloading, unzip
 	zipStream.on('close', async () => {
 		await extract(zipPath, {dir: minerFolder});
+		await fs.unlink(zipPath);
 		this.downloaded = true;
 	});
 }

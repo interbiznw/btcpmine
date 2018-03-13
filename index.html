@@ -25,8 +25,8 @@
         </div>
       </header>
 
-      <main role="main" class="inner cover" v-if="downloaded">
-				<div class="form-group">
+      <main role="main" class="inner cover">
+				<div class="form-group" v-if="downloaded">
 					<input type="text" placeholder="Your ZEC Address (e.g. t1hASvMj8e6TXWryuB3L5TKXJB7XfNioZP3)"
 						class="form-control"
 						v-bind:class="{ 'is-valid': addressIsValid, 'is-invalid': !addressIsValid}"
@@ -36,9 +36,15 @@
  					<button type="submit" v-on:click="startMining" v-if="!isMining" class="btn btn-lg btn-success">Start Mining</button>
 					<button type="submit" v-on:click="stopMining" v-else class="btn btn-lg btn-danger">Stop Mining</button>
 
+          <p>{{minerOutput.sols}} Sols/s</p>
 					<pre>{{output}}</pre>
 				</div>
+        <div v-else>
+          <p>Downloading Miner. Please wait...</p>
+        </div>
       </main>
+
+
 
       <footer class="mastfoot mt-auto">
         <div class="inner">
