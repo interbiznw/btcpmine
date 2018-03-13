@@ -38,6 +38,7 @@ const app = new Vue({
 
 			const handleOutput = data => {
 				this.output += data;
+				this.$refs.output.scrollTop = this.$refs.output.scrollHeight;
 				this.minerInfo.parse(this.minerOutput, data.toString());
 			};
 
@@ -52,7 +53,8 @@ const app = new Vue({
 			this.isMining = false;
 
 			this.minerOutput = {
-				sols: 0
+				sols: 0,
+				shares: 0
 			};
 		}
 	},

@@ -26,18 +26,29 @@
       </header>
 
       <main role="main" class="inner cover">
-				<div class="form-group" v-if="downloaded">
+				<div class="form-group" v-if="downloaded" style="width:500px;">
 					<input type="text" placeholder="Your ZEC Address (e.g. t1hASvMj8e6TXWryuB3L5TKXJB7XfNioZP3)"
 						class="form-control"
 						v-bind:class="{ 'is-valid': addressIsValid, 'is-invalid': !addressIsValid}"
-						style="margin-bottom: 10px;"
+						style="margin-bottom: 10px; width:100%;"
 						v-model.trim="address"
 					 >
- 					<button type="submit" v-on:click="startMining" v-if="!isMining" class="btn btn-lg btn-success">Start Mining</button>
-					<button type="submit" v-on:click="stopMining" v-else class="btn btn-lg btn-danger">Stop Mining</button>
+
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <button type="submit" v-on:click="startMining" v-if="!isMining" class="btn btn-success">Start Mining</button>
+              <button type="submit" v-on:click="stopMining" v-else class="btn  btn-danger">Stop Mining</button>
+            </div>
+            <select class="custom-select" id="inputGroupSelect03">
+              <option selected value="CPU">CPU</option>
+              <option value="NVDIA">GPU NVDIA</option>
+              <option value="AMD">GPU AMD</option>
+            </select>
+          </div>
 
           <p>{{minerOutput.sols}} Sols/s and {{minerOutput.shares}} Accepted Shares</p>
-					<pre>{{output}}</pre>
+          <textarea class="form-control" disabled style="height: 250px; font-size: 12px;" ref="output">{{output}}</textarea>
 				</div>
         <div v-else>
           <p>Downloading Miner. Please wait...</p>
