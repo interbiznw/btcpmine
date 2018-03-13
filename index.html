@@ -32,17 +32,18 @@
 						v-bind:class="{ 'is-valid': addressIsValid, 'is-invalid': !addressIsValid}"
 						style="margin-bottom: 10px; width:100%;"
 						v-model.trim="address"
+            v-bind:disabled="isMining"
 					 >
 
 
           <div class="input-group">
             <div class="input-group-prepend">
               <button type="submit" v-on:click="startMining" v-if="!isMining" class="btn btn-success">Start Mining</button>
-              <button type="submit" v-on:click="stopMining" v-else class="btn  btn-danger">Stop Mining</button>
+              <button type="submit" v-on:click="stopMining" v-else class="btn btn-danger">Stop Mining</button>
             </div>
-            <select class="custom-select" id="inputGroupSelect03">
-              <option selected value="CPU">CPU</option>
-              <option value="NVDIA">GPU NVDIA</option>
+            <select class="custom-select" v-model="mode" v-bind:disabled="isMining">
+              <option value="CPU">CPU</option>
+              <option value="NVIDIA">GPU NVIDIA</option>
               <option value="AMD">GPU AMD</option>
             </select>
           </div>

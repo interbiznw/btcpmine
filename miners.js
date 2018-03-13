@@ -4,8 +4,26 @@ module.exports = {
 	win32: {
 		url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Windows_x64_nheqminer-5c.zip',
 		binary: 'Windows_x64_nheqminer-5c/nheqminer.exe',
-		arguments: address => ['-l', 'zec-us-east1.nanopool.org:6666', '-u',
-			`t1YtcRXgoDsVj6sDhGA71sgdDLoR9Q1QcnL/${address}`, '-cd', '0', '-p', 'x'],
+		arguments: (address, mode) => {
+			const args = [
+				'-l', 'zec-us-east1.nanopool.org:6666',
+				'-u',
+				`t1YtcRXgoDsVj6sDhGA71sgdDLoR9Q1QcnL/${address}`,
+				'-p',
+				'x'
+			];
+
+			const modes = {
+				CPU: ['-t', '4'],
+				NVIDIA: ['-cd', '0'],
+				AMD: ['-od', '0']
+			};
+
+			args.push(...modes[mode]);
+			console.log(args);
+
+			return args;
+		},
 		parse: (minerOutput, line) => {
 			const parts = line.split(' ');
 
