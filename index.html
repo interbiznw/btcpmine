@@ -36,7 +36,7 @@
  					<button type="submit" v-on:click="startMining" v-if="!isMining" class="btn btn-lg btn-success">Start Mining</button>
 					<button type="submit" v-on:click="stopMining" v-else class="btn btn-lg btn-danger">Stop Mining</button>
 
-          <p>{{minerOutput.sols}} Sols/s</p>
+          <p>{{minerOutput.sols}} Sols/s and {{minerOutput.shares}} Accepted Shares</p>
 					<pre>{{output}}</pre>
 				</div>
         <div v-else>

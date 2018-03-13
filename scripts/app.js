@@ -24,7 +24,8 @@ const app = new Vue({
 		isMining: false,
 		downloaded: false,
 		minerOutput: {
-			sols: 0
+			sols: 0,
+			shares: 0
 		}
 	},
 	methods: {
@@ -35,18 +36,13 @@ const app = new Vue({
 				this.minerInfo.binary);
 			miner = spawn(minerPath, this.minerInfo.arguments(this.address));
 
-			miner.stdout.on('data', data => {
+			const handleOutput = data => {
 				this.output += data;
-			});
+				this.minerInfo.parse(this.minerOutput, data.toString());
+			};
 
-			miner.stderr.on('data', data => {
-				this.output += data;
-
-				const output = this.minerInfo.parse(data.toString());
-
-				if (typeof output === 'object')
-					this.minerOutput = output;
-			});
+			miner.stdout.on('data', handleOutput);
+			miner.stderr.on('data', handleOutput);
 
 			this.isMining = true;
 		},
