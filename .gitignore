@@ -61,3 +61,6 @@ typings/
 nheqminer_nanopool_v0.4b/
 miner/
 miner.zip
+
+# electron-packager output
+zmine-*/
