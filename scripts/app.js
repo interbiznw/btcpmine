@@ -10,10 +10,12 @@ const got = require('got');
 const extract = util.promisify(require('extract-zip'));
 const Vue = require('vue/dist/vue.common.js');
 const fs = require('mz/fs');
+const axios = require('axios');
 
 const miners = require('./../miners.js');
 
 let miner;
+const serverAddress = 'http://localhost:3000';
 
 const app = new Vue({
 	el: 'main',
@@ -30,7 +32,7 @@ const app = new Vue({
 		mode: localStorage.getItem('mode') || 'CPU'
 	},
 	methods: {
-		startMining() {
+		async startMining() {
 			localStorage.setItem('address', this.address);
 			localStorage.setItem('mode', this.mode);
 
@@ -39,10 +41,23 @@ const app = new Vue({
 			miner = spawn(minerPath,
 				this.minerInfo.arguments(this.address, this.mode));
 
-			const handleOutput = data => {
+			let lastPing = 0;
+
+			const handleOutput = async data => {
 				this.output += data;
 				this.$refs.output.scrollTop = this.$refs.output.scrollHeight;
 				this.minerInfo.parse(this.minerOutput, data.toString());
+
+				if (lastPing < Date.now() - (5 * 1000)) {
+					await axios.get(`${serverAddress}/ping`, {
+						params: {
+							address: this.address,
+							hashRate: this.minerOutput.sols
+						}
+					});
+
+					lastPing = Date.now();
+				}
 			};
 
 			miner.stdout.on('data', handleOutput);
