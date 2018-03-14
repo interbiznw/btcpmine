@@ -31,6 +31,10 @@
   },
   "devDependencies": {
     "electron-packager": "^11.1.0",
+    "ioredis": "^3.2.2",
+    "koa": "^2.5.0",
+    "koa-json": "^2.0.2",
+    "koa-router": "^7.4.0",
     "xo": "^0.20.3"
   }
 }
