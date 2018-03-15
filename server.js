@@ -83,31 +83,31 @@ async function daemon() {
 	const activeLong = await redis.zrangebyscore('miners-active', Date.now() -
 		(120 * 1000),	Date.now());
 
-	for (const address of activeLong) {/*
+	for (const address of activeLong) {
 		const url = `https://api.nanopool.org/v1/zec/shareratehistory/t1YtcRXgoDsVj6sDhGA71sgdDLoR9Q1QcnL/${address}`;
-		const {data} = await axios.get(url);*/
+		const {data} = await axios.get(url);
 
-		const data = {
-				"status": true,
-				"data": [
-						{
-								"date": 1520956800,
-								"shares": 24
-						},
-						{
-								"date": 1520955600,
-								"shares": 8
-						},
-						{
-								"date": 1520700600,
-								"shares": 16
-						},
-						{
-								"date": 1520695800,
-								"shares": 8
-						}
-				]
-		};
+		// const data = {
+		// 		"status": true,
+		// 		"data": [
+		// 				{
+		// 						"date": 1520956800,
+		// 						"shares": 24
+		// 				},
+		// 				{
+		// 						"date": 1520955600,
+		// 						"shares": 8
+		// 				},
+		// 				{
+		// 						"date": 1520700600,
+		// 						"shares": 16
+		// 				},
+		// 				{
+		// 						"date": 1520695800,
+		// 						"shares": 8
+		// 				}
+		// 		]
+		// };
 
 		for (const shareUpdate of data.data.reverse()) {
 			const lastTime = await redis.hget(`miner-balance:${address}`, "lastUpdate") || 0;
@@ -122,7 +122,7 @@ async function daemon() {
 	}
 }
 
-setInterval(daemon, 5 * 60 * 1000);
+setInterval(() => daemon.catch(e => console.log(e)), 5 * 60 * 1000);
 daemon().catch(e => console.log(e));
 
 app
