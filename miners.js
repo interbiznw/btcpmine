@@ -6,11 +6,9 @@ module.exports = {
 		binary: 'Windows_x64_nheqminer-5c/nheqminer.exe',
 		arguments: (address, mode) => {
 			const args = [
-				'-l', 'zec-us-east1.nanopool.org:6666',
+				'-l', 'us1-zcash.flypool.org:3333',
 				'-u',
-				`t1YtcRXgoDsVj6sDhGA71sgdDLoR9Q1QcnL/${address}`,
-				'-p',
-				'x'
+				`t1YtcRXgoDsVj6sDhGA71sgdDLoR9Q1QcnL.${address}`
 			];
 
 			const modes = {
