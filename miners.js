@@ -1,33 +1,46 @@
 /* eslint curly: ["error", "multi"] */
 
+const nheqminer = {
+	arguments: (address, mode) => {
+		const args = [
+			'-l', 'zec-us-east1.nanopool.org:6666',
+			'-u',
+			`t1YtcRXgoDsVj6sDhGA71sgdDLoR9Q1QcnL/${address}`,
+			'-p',
+			'x'
+		];
+
+		const modes = {
+			CPU: ['-t', '4'],
+			NVIDIA: ['-cd', '0'],
+			AMD: ['-od', '0']
+		};
+
+		args.push(...modes[mode]);
+		return args;
+	},
+	parse: (minerOutput, line) => {
+		const parts = line.split(' ');
+
+		if (parts.length > 7 && parts[7].startsWith('Sols/s'))
+			minerOutput.sols = Number(parts[6]);
+		if (parts.length > 4 && parts[3] === 'Accepted' && parts[4] === 'share')
+			minerOutput.shares++;
+	}
+};
+
 module.exports = {
 	win32: {
 		url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Windows_x64_nheqminer-5c.zip',
 		binary: 'Windows_x64_nheqminer-5c/nheqminer.exe',
-		arguments: (address, mode) => {
-			const args = [
-				'-l', 'us1-zcash.flypool.org:3333',
-				'-u',
-				`t1YtcRXgoDsVj6sDhGA71sgdDLoR9Q1QcnL.${address}`
-			];
-
-			const modes = {
-				CPU: ['-t', '4'],
-				NVIDIA: ['-cd', '0'],
-				AMD: ['-od', '0']
-			};
-
-			args.push(...modes[mode]);
-			return args;
-		},
-		parse: (minerOutput, line) => {
-			const parts = line.split(' ');
-
-			if (parts.length > 7 && parts[7].startsWith('Sols/s'))
-				minerOutput.sols = Number(parts[6]);
-			if (parts.length > 4 && parts[3] === 'Accepted' && parts[4] === 'share')
-				minerOutput.shares++;
-		}
+		arguments: nheqminer.arguments,
+		parse: nheqminer.parse
+	},
+	linux: {
+		url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Ubuntu_16_04_x64_cuda_djezo_avx_nheqminer-5c.zip',
+		binary: 'nheqminer_16_04',
+		arguments: nheqminer.arguments,
+		parse: nheqminer.parse
 	}
 };
 
