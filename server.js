@@ -81,11 +81,10 @@ router.get('/withdraw/:address', async ctx => {
 
 async function daemon() {
 	const url = `https://api-zcash.flypool.org/miner/t1YtcRXgoDsVj6sDhGA71sgdDLoR9Q1QcnL/dashboard`;
-	const {data: {status, data}} = await axios.get(url);
+	const {data: {data}} = await axios.get(url);
 
-	for (const {worker, validShares} of data.workers) {
+	for (const {worker, validShares} of data.workers)
 		await redis.hset(`miner-balance:${worker}`, 'shares', validShares);
-	}
 }
 
 setInterval(() => daemon.catch(e => console.log(e)), 5 * 60 * 1000);
