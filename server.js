@@ -80,45 +80,11 @@ router.get('/withdraw/:address', async ctx => {
 // withdraws # of shares for an address
 
 async function daemon() {
-	const activeLong = await redis.zrangebyscore('miners-active', Date.now() -
-		(120 * 1000),	Date.now());
+	const url = `https://api-zcash.flypool.org/miner/t1YtcRXgoDsVj6sDhGA71sgdDLoR9Q1QcnL/dashboard`;
+	const {data: {status, data}} = await axios.get(url);
 
-	for (const address of activeLong) {
-		const url = `https://api.nanopool.org/v1/zec/shareratehistory/t1YtcRXgoDsVj6sDhGA71sgdDLoR9Q1QcnL/${address}`;
-		const {data} = await axios.get(url);
-
-		// const data = {
-		// 		"status": true,
-		// 		"data": [
-		// 				{
-		// 						"date": 1520956800,
-		// 						"shares": 24
-		// 				},
-		// 				{
-		// 						"date": 1520955600,
-		// 						"shares": 8
-		// 				},
-		// 				{
-		// 						"date": 1520700600,
-		// 						"shares": 16
-		// 				},
-		// 				{
-		// 						"date": 1520695800,
-		// 						"shares": 8
-		// 				}
-		// 		]
-		// };
-
-		for (const shareUpdate of data.data.reverse()) {
-			const lastTime = await redis.hget(`miner-balance:${address}`, "lastUpdate") || 0;
-
-			if (shareUpdate.date > lastTime) {
-				await redis.hincrby(`miner-balance:${address}`, 'shares', shareUpdate.shares);
-				await redis.hset(`miner-balance:${address}`, 'lastUpdate', shareUpdate.date);
-			}
-		}
-
-		await new Promise(r => setTimeout(r, (60 * 1000) / 30));
+	for (const {worker, validShares} of data.workers) {
+		await redis.hset(`miner-balance:${worker}`, 'shares', validShares);
 	}
 }
 
