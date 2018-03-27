@@ -87,7 +87,7 @@ async function daemon() {
 		await redis.hset(`miner-balance:${worker}`, 'shares', validShares);
 }
 
-setInterval(() => daemon.catch(e => console.log(e)), 5 * 60 * 1000);
+setInterval(() => daemon().catch(e => console.log(e)), 5 * 60 * 1000);
 daemon().catch(e => console.log(e));
 
 app

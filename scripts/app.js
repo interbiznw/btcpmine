@@ -2,26 +2,18 @@
 /* eslint curly: ["error", "multi"] */
 /* eslint capitalized-comments: ["error", "never"] */
 
-const path = require('path');
-const util = require('util');
-const {spawn} = require('child_process');
 const {shell} = require('electron');
 const base58check = require('base58check');
-const got = require('got');
-const extract = util.promisify(require('extract-zip'));
 const Vue = require('vue/dist/vue.common.js');
-const fs = require('mz/fs');
 const axios = require('axios');
 
-const miners = require('./../miners.js');
+const extMiner = require('../lib/ext-miner.js');
 
-let miner;
 const serverAddress = 'http://localhost:3000';
 
 const app = new Vue({
 	el: 'main',
 	data: {
-		minerInfo: miners[process.platform],
 		address: localStorage.getItem('address') || '',
 		output: '',
 		isMining: false,
@@ -41,17 +33,13 @@ const app = new Vue({
 			localStorage.setItem('address', this.address);
 			localStorage.setItem('mode', this.mode);
 
-			const minerPath = path.join(__dirname, '/../miner/',
-				this.minerInfo.binary);
-			miner = spawn(minerPath,
-				this.minerInfo.arguments(this.address, this.mode));
-
 			let lastPing = 0;
 
-			const handleOutput = async data => {
+			extMiner.start(this.address, this.mode, async (minerOutput, data) => {
+				this.minerOutput = minerOutput;
+
 				this.output += data;
 				this.$refs.output.scrollTop = this.$refs.output.scrollHeight;
-				this.minerInfo.parse(this.minerOutput, data.toString());
 
 				if (lastPing < Date.now() - (5 * 1000)) {
 					await axios.get(`${serverAddress}/ping`, {
@@ -63,18 +51,15 @@ const app = new Vue({
 
 					lastPing = Date.now();
 				}
-			};
-
-			miner.stdout.on('data', handleOutput);
-			miner.stderr.on('data', handleOutput);
+			});
 
 			this.isMining = true;
 		},
 		stopMining() {
-			miner.kill('SIGINT');
-			this.output = '';
+			extMiner.stop();
 			this.isMining = false;
 
+			this.output = '';
 			this.minerOutput = {
 				sols: 0,
 				shares: 0
@@ -90,31 +75,9 @@ const app = new Vue({
 				return false;
 			}
 		}
+	},
+	async created() {
+		await extMiner.install();
+		this.downloaded = true;
 	}
 });
-
-async function created() {
-	const minerInfo = this.minerInfo;
-	const minerFolder = path.join(__dirname, '/../miner');
-	const zipPath = path.join(__dirname, '/../miner.zip');
-
-	// check if miner exists
-	const minerPath = path.join(__dirname, '/../miner/', this.minerInfo.binary);
-	if (await fs.exists(minerPath)) {
-		this.downloaded = true;
-		return;
-	}
-
-	// download zip and save to file
-	const zipStream = fs.createWriteStream(zipPath);
-	got.stream(minerInfo.url).pipe(zipStream);
-
-	// when done downloading, unzip
-	zipStream.on('close', async () => {
-		await extract(zipPath, {dir: minerFolder});
-		await fs.unlink(zipPath);
-		this.downloaded = true;
-	});
-}
-
-created.call(app);
