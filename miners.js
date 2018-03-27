@@ -5,7 +5,7 @@ const nheqminer = {
 		const args = [
 			'-l', 'us1-zcash.flypool.org:3333',
 			'-u',
-			`t1YtcRXgoDsVj6sDhGA71sgdDLoR9Q1QcnL.${address}`,
+			`${address}`,
 			'-p',
 			'x'
 		];

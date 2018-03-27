@@ -5,6 +5,7 @@
 const path = require('path');
 const util = require('util');
 const {spawn} = require('child_process');
+const {shell} = require('electron');
 const base58check = require('base58check');
 const got = require('got');
 const extract = util.promisify(require('extract-zip'));
@@ -32,6 +33,10 @@ const app = new Vue({
 		mode: localStorage.getItem('mode') || 'CPU'
 	},
 	methods: {
+		openDashboard() {
+			const url = `https://zcash.flypool.org/miners/${this.address}/dashboard`;
+			shell.openExternal(url);
+		},
 		async startMining() {
 			localStorage.setItem('address', this.address);
 			localStorage.setItem('mode', this.mode);

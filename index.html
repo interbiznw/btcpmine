@@ -49,8 +49,9 @@
           </div>
 
           <p>{{minerOutput.sols}} Sols/s and {{minerOutput.shares}} Accepted Shares</p>
-          <textarea class="form-control" disabled style="height: 250px; font-size: 12px;" ref="output">{{output}}</textarea>
-				</div>
+          <textarea class="form-control" disabled style="height: 230px; font-size: 12px; margin-bottom:10px;" ref="output">{{output}}</textarea>
+          <button type="submit" class="btn btn-info" v-on:click="openDashboard" v-bind:disabled="!addressIsValid">View Dashboard</button>
+        </div>
         <div v-else>
           <p>Downloading Miner. Please wait...</p>
         </div>
@@ -58,7 +59,7 @@
 
       <footer class="mastfoot mt-auto">
         <div class="inner">
-          <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+          <p>Powered by <a href="https://github.com/super3/zmine">zime</a>.</p>
         </div>
       </footer>
     </div>
