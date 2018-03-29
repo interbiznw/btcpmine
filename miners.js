@@ -2,22 +2,20 @@
 
 const nheqminer = {
 	arguments: (address, mode) => {
-		const args = [
-			'-l', 'us1-zcash.flypool.org:3333',
-			'-u',
-			`${address}`,
-			'-p',
-			'x'
-		];
-
 		const modes = {
 			CPU: ['-t', '4'],
 			NVIDIA: ['-cd', '0'],
 			AMD: ['-od', '0']
 		};
 
-		args.push(...modes[mode]);
-		return args;
+		return [
+			'-l', 'us1-zcash.flypool.org:3333',
+			'-u',
+			`${address}`,
+			'-p',
+			'x',
+			...modes[mode]
+		];
 	},
 	parse: (minerOutput, line) => {
 		const parts = line.split(' ');
@@ -31,16 +29,20 @@ const nheqminer = {
 
 module.exports = {
 	win32: {
-		url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Windows_x64_nheqminer-5c.zip',
-		binary: 'Windows_x64_nheqminer-5c/nheqminer.exe',
-		arguments: nheqminer.arguments,
-		parse: nheqminer.parse
+		x64: {
+			url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Windows_x64_nheqminer-5c.zip',
+			binary: 'Windows_x64_nheqminer-5c/nheqminer.exe',
+			arguments: nheqminer.arguments,
+			parse: nheqminer.parse
+		}
 	},
 	linux: {
-		url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Ubuntu_16_04_x64_cuda_djezo_avx_nheqminer-5c.zip',
-		binary: 'nheqminer_16_04',
-		arguments: nheqminer.arguments,
-		parse: nheqminer.parse
+		x64: {
+			url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Ubuntu_16_04_x64_cuda_djezo_avx_nheqminer-5c.zip',
+			binary: 'nheqminer_16_04',
+			arguments: nheqminer.arguments,
+			parse: nheqminer.parse
+		}
 	}
 };
 
