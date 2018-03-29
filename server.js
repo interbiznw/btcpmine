@@ -1,6 +1,3 @@
-/* eslint capitalized-comments: ["error", "never"] */
-/* eslint curly: ["error", "multi"] */
-
 const Koa = require('koa');
 const Router = require('koa-router');
 const Redis = require('ioredis');

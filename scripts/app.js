@@ -1,6 +1,4 @@
 /* global localStorage */
-/* eslint curly: ["error", "multi"] */
-/* eslint capitalized-comments: ["error", "never"] */
 
 const {shell} = require('electron');
 const base58check = require('base58check');
@@ -11,7 +9,7 @@ const extMiner = require('../lib/ext-miner.js');
 
 const serverAddress = 'http://localhost:3000';
 
-const app = new Vue({
+new Vue({
 	el: 'main',
 	data: {
 		address: localStorage.getItem('address') || '',

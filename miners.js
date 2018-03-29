@@ -1,5 +1,3 @@
-/* eslint curly: ["error", "multi"] */
-
 const nheqminer = {
 	arguments: (address, mode) => {
 		const modes = {

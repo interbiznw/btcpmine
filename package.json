@@ -36,5 +36,13 @@
     "koa-json": "^2.0.2",
     "koa-router": "^7.4.0",
     "xo": "^0.20.3"
+  },
+  "xo": {
+    "rules": {
+      "no-await-in-loop": "off",
+      "curly": "off",
+      "capitalized-comments": "off",
+      "no-new": "off"
+    }
   }
 }
