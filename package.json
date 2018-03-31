@@ -24,6 +24,7 @@
     "base58check": "^2.0.0",
     "bootstrap": "^4.0.0",
     "electron": "^1.8.3",
+    "electron-updater": "^2.21.4",
     "extract-zip": "^1.6.6",
     "got": "^8.3.0",
     "mz": "^2.7.0",
