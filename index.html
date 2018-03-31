@@ -26,7 +26,10 @@
       </header>
 
       <main role="main" class="inner cover">
-				<div class="form-group" v-if="downloaded" style="width:500px;">
+        <div v-if="!supported">
+          <p>Sorry, your platform is not currently supported.</p>
+        </div>
+				<div class="form-group" v-else-if="downloaded" style="width:500px;">
 					<input type="text" placeholder="Your ZEC Address (e.g. t1hASvMj8e6TXWryuB3L5TKXJB7XfNioZP3)"
 						class="form-control"
 						v-bind:class="{ 'is-valid': addressIsValid, 'is-invalid': !addressIsValid}"

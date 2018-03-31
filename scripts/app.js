@@ -20,7 +20,8 @@ new Vue({
 			sols: 0,
 			shares: 0
 		},
-		mode: localStorage.getItem('mode') || 'CPU'
+		mode: localStorage.getItem('mode') || 'CPU',
+		supported: extMiner.supported
 	},
 	methods: {
 		openDashboard() {
