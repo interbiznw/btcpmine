@@ -92,4 +92,11 @@ app
 	.use(router.routes())
 	.use(router.allowedMethods());
 
-app.listen(3000);
+/* istanbul ignore next */
+// start the server, if running this script alone
+if (require.main === module)
+	app.listen(3000, () => {
+		console.log('Server started! At http://localhost:' + 3000);
+	});
+
+module.exports = app;
