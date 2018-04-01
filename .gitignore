@@ -64,3 +64,4 @@ miner.zip
 
 # electron-packager output
 zmine-*/
+dist/
