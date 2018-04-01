@@ -1,7 +1,7 @@
 {
   "name": "zmine",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.0.9",
+  "description": "GUI for mining Zcash.",
   "main": "index.js",
   "scripts": {
     "test": "npm run testsuite && npm run linter",
@@ -17,7 +17,11 @@
     "type": "git",
     "url": "git+https://github.com/super3/zmine.git"
   },
-  "author": "",
+  "author": "Shawn Wilkinson <me@super3.org> (http://super3.org)",
+  "contributors": [
+    "Shawn Wilkinson <me@super3.org> (http://super3.org)",
+    "Monty Anderson <work@montyanderson.net> (https://montyanderson.net)"
+  ],
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/super3/zmine/issues"
@@ -27,6 +31,8 @@
     "axios": "^0.18.0",
     "base58check": "^2.0.0",
     "bootstrap": "^4.0.0",
+    "electron-debug": "^1.5.0",
+    "electron-simple-updater": "^1.2.3",
     "extract-zip": "^1.6.6",
     "got": "^8.3.0",
     "jquery": "^3.3.1",
@@ -35,9 +41,10 @@
     "vue": "^2.5.14"
   },
   "devDependencies": {
-    "electron": "^1.8.3",
     "coveralls": "^3.0.0",
+    "electron": "^1.8.3",
     "electron-builder": "^20.8.1",
+    "electron-builder-squirrel-windows": "^20.8.0",
     "electron-packager": "^11.1.0",
     "ioredis": "^3.2.2",
     "istanbul": "^1.1.0-alpha.1",
@@ -57,6 +64,9 @@
     }
   },
   "build": {
-    "appId": "zmine"
+    "appId": "zmine",
+    "win": {
+      "target": "squirrel"
+    }
   }
 }

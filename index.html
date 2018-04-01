@@ -18,14 +18,14 @@
 
   <body class="text-center">
 
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column" id="app">
       <header class="masthead mb-auto">
         <div class="inner">
           <h3 class="masthead-brand">zmine</h3>
         </div>
       </header>
 
-      <main role="main" class="inner cover">
+      <main class="inner cover">
         <div v-if="!supported">
           <p>Sorry, your platform is not currently supported.</p>
         </div>
@@ -61,7 +61,7 @@
 
       <footer class="mastfoot mt-auto">
         <div class="inner">
-          <p>Powered by <a href="https://github.com/super3/zmine">zmine</a>.</p>
+          <p>Powered by <a href="https://github.com/super3/zmine">zmine</a> ({{version}}).</p>
         </div>
       </footer>
     </div>

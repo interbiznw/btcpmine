@@ -10,7 +10,7 @@ const server = 'http://zfaucet.org:3005';
 const feed = `${server}/update/${process.platform}/${version}`;
 
 autoUpdater.setFeedURL(feed);
-autoUpdater.checkForUpdates(); // check on launch
+// autoUpdater.checkForUpdates(); // check on launch
 
 setInterval(() => {
 	autoUpdater.checkForUpdates();

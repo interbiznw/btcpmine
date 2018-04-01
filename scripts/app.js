@@ -5,12 +5,13 @@ const base58check = require('base58check');
 const Vue = require('vue/dist/vue.common.js');
 const axios = require('axios');
 
+const {version} = require('../package.json');
 const extMiner = require('../lib/ext-miner.js');
 
 const serverAddress = 'http://localhost:3000';
 
 new Vue({
-	el: 'main',
+	el: '#app',
 	data: {
 		address: localStorage.getItem('address') || '',
 		output: '',
@@ -21,7 +22,8 @@ new Vue({
 			shares: 0
 		},
 		mode: localStorage.getItem('mode') || 'CPU',
-		supported: extMiner.supported
+		supported: extMiner.supported,
+		version
 	},
 	methods: {
 		openDashboard() {
