@@ -23,11 +23,11 @@ new Vue({
 		},
 		mode: localStorage.getItem('mode') || 'CPU',
 		supported: extMiner.supported,
-		version
+		version,
+		latestVersion: version
 	},
 	methods: {
-		openDashboard() {
-			const url = `https://zcash.flypool.org/miners/${this.address}/dashboard`;
+		openExternal(url) {
 			shell.openExternal(url);
 		},
 		async startMining() {
@@ -78,7 +78,20 @@ new Vue({
 		}
 	},
 	async created() {
-		await extMiner.install();
-		this.downloaded = true;
+		const getLatestVersion = async () => {
+			const packageUrl = 'https://raw.githubusercontent.com/super3/zmine/master/package.json';
+			const {data: {version}} = await axios.get(packageUrl);
+			this.latestVersion = version;
+		};
+
+		const downloadMiner = async () => {
+			await extMiner.install();
+			this.downloaded = true;
+		};
+
+		await Promise.all([
+			getLatestVersion(),
+			downloadMiner()
+		]);
 	}
 });
