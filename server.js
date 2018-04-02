@@ -2,7 +2,7 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const Redis = require('ioredis');
 const json = require('koa-json');
-const axios = require('axios');
+// const axios = require('axios');
 
 const app = new Koa();
 const router = new Router();

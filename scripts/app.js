@@ -8,7 +8,9 @@ const axios = require('axios');
 const {version} = require('../package.json');
 const extMiner = require('../lib/ext-miner.js');
 
-const serverAddress = 'http://localhost:3000';
+require('dotenv').config();
+const serverAddress = process.env.DEV ? 'http://localhost:3000' :
+	'http://zfaucet.org:3000';
 
 new Vue({
 	el: '#app',
