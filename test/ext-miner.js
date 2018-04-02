@@ -10,13 +10,17 @@ describe('ext-miner', () => {
 	});
 
 	describe('start()', () => {
-		it('should start', async () => {
+		it('should start', async function () {
+			this.timeout(10 * 1000);
+
 			await extMiner.start('t1hASvMj8e6TXWryuB3L5TKXJB7XfNioZP3', 'CPU');
 		});
 	});
 
 	describe('stop()', () => {
-		it('should stop', async () => {
+		it('should stop', async function () {
+			this.timeout(10 * 1000);
+
 			await extMiner.stop();
 		});
 	});
