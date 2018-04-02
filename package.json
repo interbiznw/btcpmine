@@ -1,6 +1,6 @@
 {
   "name": "zmine",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "GUI for mining Zcash.",
   "main": "index.js",
   "scripts": {
