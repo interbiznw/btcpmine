@@ -12,3 +12,6 @@ npm install
 npm start
 ```
 
+### Official Threads
+- [BitcoinTalk - [ANN] Zmine GUI - Easiest GUI Miner for Zcash (Windows/Linux)](https://bitcointalk.org/index.php?topic=3249018.0)
+- [Zcash Forum - Zmine GUI - Easiest GUI Miner for Zcash](https://forum.z.cash/t/zmine-gui-easiest-gui-miner-for-zcash/28091)
