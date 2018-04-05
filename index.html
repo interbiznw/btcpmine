@@ -56,6 +56,13 @@
               <option value="NVIDIA">GPU NVIDIA</option>
               <option value="AMD">GPU AMD</option>
             </select>
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">
+                <span v-if="mode === 'CPU'"># Threads</span>
+                <span v-else># GPUs</span>
+              </label>
+              <input type="number" v-model="cores" style="width: 100px;" min="1" v-bind:disabled="isMining"/>
+            </div>
           </div>
 
           <p>{{minerOutput.sols}} Sols/s and {{minerOutput.shares}} Accepted Shares</p>

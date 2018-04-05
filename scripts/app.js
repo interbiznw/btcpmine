@@ -9,6 +9,7 @@ const {version} = require('../package.json');
 const extMiner = require('../lib/ext-miner.js');
 
 require('dotenv').config();
+
 const serverAddress = process.env.DEV ? 'http://localhost:3000' :
 	'http://zfaucet.org:3000';
 
@@ -26,7 +27,8 @@ new Vue({
 		mode: localStorage.getItem('mode') || 'CPU',
 		supported: extMiner.supported,
 		version,
-		latestVersion: version
+		latestVersion: version,
+		cores: localStorage.getItem('cores') || 1
 	},
 	methods: {
 		openExternal(url) {
@@ -35,10 +37,11 @@ new Vue({
 		async startMining() {
 			localStorage.setItem('address', this.address);
 			localStorage.setItem('mode', this.mode);
+			localStorage.setItem('cores', this.cores);
 
 			let lastPing = 0;
 
-			extMiner.start(this.address, this.mode, async (minerOutput, data) => {
+			extMiner.start(this.address, this.mode, this.cores, async (minerOutput, data) => {
 				this.minerOutput = minerOutput;
 
 				this.output += data;

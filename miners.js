@@ -1,9 +1,14 @@
 const nheqminer = {
-	arguments: (address, mode) => {
+	arguments: (address, mode, cores) => {
+		let coreList = '0';
+		for (let i = 1; i < cores; i++) {
+			coreList += ` ${i}`;
+		}
+
 		const modes = {
-			CPU: ['-t', '4'],
-			NVIDIA: ['-cd', '0'],
-			AMD: ['-od', '0']
+			CPU: ['-t', cores],
+			NVIDIA: ['-cd', coreList],
+			AMD: ['-od', coreList]
 		};
 
 		return [
