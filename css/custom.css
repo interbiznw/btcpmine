@@ -1,0 +1,27 @@
+.hidden { display: none; }
+
+[v-cloak] { display: none; }
+
+button.link {
+	display:inline-block;
+	position:relative;
+	background-color: transparent;
+	cursor: pointer;
+	border:0;
+	padding:0;
+	color:#007bff;
+	font: inherit;
+}
+button.link:hover {
+	text-decoration:underline;
+}
+
+.bottom-space {
+	margin-bottom: 10px;
+}
+
+.progress-extra {
+	margin-bottom: 20px;
+	height: 31px;
+	background-color: rgb(204, 204, 204);
+}
