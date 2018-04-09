@@ -3,6 +3,7 @@ const Router = require('koa-router');
 const Redis = require('ioredis');
 const json = require('koa-json');
 // const axios = require('axios');
+const io = require('socket.io')(3010);
 
 const app = new Koa();
 const router = new Router();
@@ -17,6 +18,18 @@ function isAddress(address) {
 		return false;
 	}
 }
+
+io.on('connection', socket => {
+	socket.on('hashrate', async ({address, hashRate}) => {
+		if (!isAddress(address)) throw new Error('Invalid Address.');
+
+		await redis.zadd('miners-active', Date.now(), address);
+		await redis.lpush(`miner:${address}`, JSON.stringify({
+			hashRate,
+			date: Date.now()
+		}));
+	});
+});
 
 router.get('/', async ctx => {
 	const timeSince = typeof ctx.query.since === 'undefined' ?
@@ -35,18 +48,6 @@ router.get('/', async ctx => {
 			};
 		}))
 	};
-});
-
-router.get('/ping', async ctx => {
-	if (!isAddress(ctx.query.address)) throw new Error('Invalid Address.');
-
-	await redis.zadd('miners-active', Date.now(), ctx.query.address);
-	await redis.lpush(`miner:${ctx.query.address}`, JSON.stringify({
-		hashRate: ctx.query.hashRate,
-		date: Date.now()
-	}));
-
-	ctx.body = {};
 });
 
 // router.get('/balance/:address', async ctx => {
