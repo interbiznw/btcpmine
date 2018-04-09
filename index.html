@@ -73,10 +73,6 @@
             </div>
             <div class="card-body">
               <h1 class="card-title pricing-card-title">{{minerOutput.shares}} <small class="text-muted">accepted shares</small></h1>
-              <ul class="list-unstyled mt-3 mb-4">
-                <li>Email support</li>
-                <li>Help center access</li>
-              </ul>
               <button type="button" class="btn btn-lg btn-block btn-outline-primary" v-on:click="openExternal(`https://zcash.flypool.org/miners/${address}/dashboard`)" v-bind:disabled="!addressIsValid">View Dashboard</button>
             </div>
             <input type="text" placeholder="Your ZEC Address (e.g. t1hASvMj8e6TXWryuB3L5TKXJB7XfNioZP3)"

@@ -37,6 +37,7 @@
     "jquery": "^3.3.1",
     "mz": "^2.7.0",
     "popper.js": "^1.14.1",
+    "socket.io": "^2.1.0",
     "vue": "^2.5.14"
   },
   "devDependencies": {
