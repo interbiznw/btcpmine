@@ -60,36 +60,15 @@
     <div class="container" id="app">
       <Update-Check></Update-Check>
 
-      <div>
-        <div class="card-deck mb-3 text-center">
-          <Wallet-Card
-            v-bind:mineroutput="minerOutput"
-            v-bind:is-mining="isMining"
-            v-on:address-change="addressChange"
-          ></Wallet-Card>
+      <div v-if="!supported">
+        <p>Sorry, your platform isn't supported!</p>
+      </div>
 
-          <Mine-Card
-            v-bind:address="address"
-            v-on:update="minerUpdate"
-            v-on:start="isMining = true"
-            v-on:stop="isMining = false"
-          ></Mine-Card>
-        </div>
+      <div v-else-if="!downloaded">
+          <p>Please wait while the miner downloads...</p>
       </div>
-      <div>
-        <div class="card text-center box-shadow">
-          <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">Log</a>
-              </li>
-            </ul>
-          </div>
-          <div class="card-body">
-            <textarea class="form-control" disabled style="height: 230px; font-size: 12px; margin-bottom:10px;" ref="output">{{output}}</textarea>
-          </div>
-        </div>
-      </div>
+
+      <Main-Panel v-else></Main-Panel>
     </div>
 
     <!-- Bootstrap core JavaScript

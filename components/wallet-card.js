@@ -17,11 +17,11 @@ module.exports = Vue.component('wallet-card', {
 			v-bind:class="{ 'is-valid': addressIsValid, 'is-invalid': !addressIsValid}"
 			style="margin-bottom: 10px; width:100%;"
 			v-model.trim="address"
-			v-bind:disabled="is-mining"
+			v-bind:disabled="mining"
 		 >
 	</div>
 	`,
-	props: ['mineroutput', 'is-mining'],
+	props: ['mineroutput', 'mining'],
 	data: () => ({
 		address: localStorage.getItem('address') || ''
 	}),

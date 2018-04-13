@@ -66,7 +66,6 @@ module.exports = Vue.component('mine-card', {
 			shares: 0
 		},
 		mode: localStorage.getItem('mode') || 'CPU',
-		// supported: extMiner.supported,
 		cores: localStorage.getItem('cores') || 1
 	}),
 	methods: {
