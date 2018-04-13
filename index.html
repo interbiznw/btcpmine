@@ -59,72 +59,21 @@
 
     <div class="container" id="app">
       <Update-Check></Update-Check>
-      
+
       <div>
         <div class="card-deck mb-3 text-center">
-          <div class="card box-shadow">
-            <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Wallet</h4>
-            </div>
-            <div class="card-body">
-              <h1 class="card-title pricing-card-title">{{minerOutput.shares}} <small class="text-muted">accepted shares</small></h1>
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary" v-on:click="openExternal(`https://zcash.flypool.org/miners/${address}/dashboard`)" v-bind:disabled="!addressIsValid">View Dashboard</button>
-            </div>
-            <input type="text" placeholder="Your ZEC Address (e.g. t1hASvMj8e6TXWryuB3L5TKXJB7XfNioZP3)"
-              class="form-control"
-              v-bind:class="{ 'is-valid': addressIsValid, 'is-invalid': !addressIsValid}"
-              style="margin-bottom: 10px; width:100%;"
-              v-model.trim="address"
-              v-bind:disabled="isMining"
-             >
-          </div>
-          <div class="card box-shadow">
-            <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Mine</h4>
-            </div>
-            <div class="card-body">
-              <h1 class="card-title pricing-card-title">
-                {{minerOutput.sols}} <small class="text-muted"> sol/s </small>
-              </h1>
+          <Wallet-Card
+            v-bind:mineroutput="minerOutput"
+            v-bind:is-mining="isMining"
+            v-on:address-change="addressChange"
+          ></Wallet-Card>
 
-              <!--<div class="input-group" style="margin-bottom: 10px;">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="inputGroupSelect01">
-                    <span v-if="mode === 'CPU'"># Threads</span>
-                    <span v-else># GPUs</span>
-                  </label>
-                  <input type="number" v-model="cores" min="1" v-bind:disabled="isMining"/>
-                </div>
-              </div>-->
-
-              <table class="table">
-                <tbody style="font-size: 22px;">
-                  <tr>
-                    <th scope="row"v-if="mode === 'CPU'">1 Thread(s)</th>
-                    <th scope="row" v-else>1 GPU(s)</th>
-                    <td>
-                      <button type="button" class="link">+</button> / <button type="button" class="link">-</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <div class="input-group">
-                      <select class="custom-select " v-model="mode" v-bind:disabled="isMining">
-                        <option value="CPU">CPU</option>
-                        <option value="NVIDIA">GPU NVIDIA</option>
-                        <option value="AMD">GPU AMD</option>
-                      </select>
-                    </div>
-                  </tr>
-                </tbody>
-              </table>
-
-              <div>
-                  <button type="submit" v-on:click="startMining" v-if="!isMining" class="btn btn-lg btn-success">Start Mining</button>
-                  <button type="submit" v-on:click="stopMining" v-else class="btn btn-lg btn-danger">Stop Mining</button>
-              </div>
-
-            </div>
-          </div>
+          <Mine-Card
+            v-bind:address="address"
+            v-on:update="minerUpdate"
+            v-on:start="isMining = true"
+            v-on:stop="isMining = false"
+          ></Mine-Card>
         </div>
       </div>
       <div>
