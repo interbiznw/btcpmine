@@ -18,20 +18,10 @@ module.exports = Vue.component('main-panel', {
 		></Mine-Card>
 	  </div>
 	</div>
-	<div>
-	  <div class="card text-center box-shadow">
-		<div class="card-header">
-		  <ul class="nav nav-tabs card-header-tabs">
-			<li class="nav-item">
-			  <a class="nav-link active" href="#">Log</a>
-			</li>
-		  </ul>
+
+		<div>
+			<Log-Card v-bind:log="output"></Log-Card>
 		</div>
-		<div class="card-body">
-		  <textarea class="form-control" disabled style="height: 230px; font-size: 12px; margin-bottom:10px;" ref="output">{{output}}</textarea>
-		</div>
-	  </div>
-	</div>
 	</div>`,
 	data: () => ({
 		output: '',
@@ -54,6 +44,7 @@ module.exports = Vue.component('main-panel', {
 	components: {
 		UpdateCheck: require('./update-check'),
 		MineCard: require('./mine-card'),
-		WalletCard: require('./wallet-card')
+		WalletCard: require('./wallet-card'),
+		LogCard: require('./log-card')
 	}
 });

@@ -23,13 +23,13 @@ module.exports = Vue.component('wallet-card', {
 	`,
 	props: ['mineroutput', 'mining'],
 	data: () => ({
-		address: localStorage.getItem('address') || ''
+		address: ''
 	}),
 	computed: {
 		addressIsValid() {
 			try {
-				const check = base58check.decode(this.address, 'hex');
-				return check.prefix === '1c';
+				return base58check.decode(this.address, 'hex')
+					.prefix === '1c';
 			} catch (err) {
 				return false;
 			}
@@ -44,6 +44,6 @@ module.exports = Vue.component('wallet-card', {
 		}
 	},
 	created() {
-		console.log(this.minerOutput);
+		this.address = localStorage.getItem('address') || '';
 	}
 });
