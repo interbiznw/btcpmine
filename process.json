@@ -1,0 +1,11 @@
+{
+	apps: [{
+		name: "zmine",
+		script: "server.js",
+		max_memory_restart: "256M",
+		watch: true,
+		env: {
+			NODE_ENV: "production"
+		}
+	}
+}
