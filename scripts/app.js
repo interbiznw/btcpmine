@@ -3,7 +3,6 @@
 const {shell} = require('electron');
 const base58check = require('base58check');
 const Vue = require('vue/dist/vue.common.js');
-const axios = require('axios');
 const io = require('socket.io-client');
 
 const {version} = require('../package.json');
@@ -82,20 +81,16 @@ new Vue({
 		}
 	},
 	async created() {
-		const getLatestVersion = async () => {
-			const packageUrl = 'https://raw.githubusercontent.com/super3/zmine/master/package.json';
-			const {data: {version}} = await axios.get(packageUrl);
-			this.latestVersion = version;
-		};
-
 		const downloadMiner = async () => {
 			await extMiner.install();
 			this.downloaded = true;
 		};
 
 		await Promise.all([
-			getLatestVersion(),
 			downloadMiner()
 		]);
+	},
+	components: {
+		UpdateCheck: require('../components/update-check')
 	}
 });

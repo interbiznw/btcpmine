@@ -58,13 +58,8 @@
     </div>
 
     <div class="container" id="app">
-      <div class="alert alert-primary alert-dismissible fade show" role="alert" v-if="version !== latestVersion">
-        <strong>Out of date!</strong> Please update zmine
-        <a style="color: inherit; text-decoration: underline;" v-on:click="openExternal('https://github.com/super3/zmine/releases')" href="#">here</a>.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+      <Update-Check></Update-Check>
+      
       <div>
         <div class="card-deck mb-3 text-center">
           <div class="card box-shadow">
@@ -92,26 +87,40 @@
                 {{minerOutput.sols}} <small class="text-muted"> sol/s </small>
               </h1>
 
-              <div class="input-group" style="margin-bottom: 10px;">
-                <div class="input-group-prepend">
-                  <button type="submit" v-on:click="startMining" v-if="!isMining" class="btn btn-success">Start Mining</button>
-                  <button type="submit" v-on:click="stopMining" v-else class="btn btn-danger">Stop Mining</button>
-                </div>
-                <select class="custom-select" v-model="mode" v-bind:disabled="isMining">
-                  <option value="CPU">CPU</option>
-                  <option value="NVIDIA">GPU NVIDIA</option>
-                  <option value="AMD">GPU AMD</option>
-                </select>
-              </div>
-
-              <div class="input-group">
+              <!--<div class="input-group" style="margin-bottom: 10px;">
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="inputGroupSelect01">
                     <span v-if="mode === 'CPU'"># Threads</span>
                     <span v-else># GPUs</span>
                   </label>
-                  <input type="number" v-model="cores" style="width: 100px;" min="1" v-bind:disabled="isMining"/>
+                  <input type="number" v-model="cores" min="1" v-bind:disabled="isMining"/>
                 </div>
+              </div>-->
+
+              <table class="table">
+                <tbody style="font-size: 22px;">
+                  <tr>
+                    <th scope="row"v-if="mode === 'CPU'">1 Thread(s)</th>
+                    <th scope="row" v-else>1 GPU(s)</th>
+                    <td>
+                      <button type="button" class="link">+</button> / <button type="button" class="link">-</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <div class="input-group">
+                      <select class="custom-select " v-model="mode" v-bind:disabled="isMining">
+                        <option value="CPU">CPU</option>
+                        <option value="NVIDIA">GPU NVIDIA</option>
+                        <option value="AMD">GPU AMD</option>
+                      </select>
+                    </div>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div>
+                  <button type="submit" v-on:click="startMining" v-if="!isMining" class="btn btn-lg btn-success">Start Mining</button>
+                  <button type="submit" v-on:click="stopMining" v-else class="btn btn-lg btn-danger">Stop Mining</button>
               </div>
 
             </div>
