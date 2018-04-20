@@ -5,23 +5,16 @@ const json = require('koa-json');
 // const axios = require('axios');
 const io = require('socket.io')(3010);
 
+// internal libs
+const utils = require('./lib/utils');
+
 const app = new Koa();
 const router = new Router();
 const redis = new Redis();
-const base58check = require('base58check');
-
-function isAddress(address) {
-	try {
-		const check = base58check.decode(address, 'hex');
-		return check.prefix === '1c';
-	} catch (err) {
-		return false;
-	}
-}
 
 io.on('connection', socket => {
 	socket.on('hashrate', async ({address, hashRate}) => {
-		if (!isAddress(address)) throw new Error('Invalid Address.');
+		if (!utils.isAddress(address)) throw new Error('Invalid Address.');
 
 		await redis.zadd('miners-active', Date.now(), address);
 		await redis.lpush(`miner:${address}`, JSON.stringify({
