@@ -1,7 +1,7 @@
 const {shell} = require('electron');
-const Vue = require('vue/dist/vue.common.js');
+const Vue = require('vue/dist/vue.common');
 
-const extMiner = require('../lib/ext-miner.js');
+const extMiner = require('../lib/ext-miner');
 
 require('dotenv').config();
 

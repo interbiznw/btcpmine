@@ -1,4 +1,4 @@
-const Vue = require('vue/dist/vue.common.js');
+const Vue = require('vue/dist/vue.common');
 
 module.exports = Vue.component('wallet-card', {
 	template: `<div class="card text-center box-shadow">

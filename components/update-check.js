@@ -1,5 +1,5 @@
 const axios = require('axios');
-const Vue = require('vue/dist/vue.common.js');
+const Vue = require('vue/dist/vue.common');
 const {version} = require('../package.json');
 
 module.exports = Vue.component('update-check', {

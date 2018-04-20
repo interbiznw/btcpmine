@@ -1,4 +1,4 @@
-const Vue = require('vue/dist/vue.common.js');
+const Vue = require('vue/dist/vue.common');
 
 module.exports = Vue.component('main-panel', {
 	template: `
