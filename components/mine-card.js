@@ -49,8 +49,8 @@ module.exports = Vue.component('mine-card', {
 			</table>
 
 			<div>
-					<button type="submit" v-on:click="startMining" v-if="!isMining" class="btn btn-lg btn-success">Start Mining</button>
-					<button type="submit" v-on:click="stopMining" v-else class="btn btn-lg btn-danger">Stop Mining</button>
+					<button type="submit" v-on:click="startMining" v-if="!isMining" class="btn btn-lg btn-block btn-success">Start Mining</button>
+					<button type="submit" v-on:click="stopMining" v-else class="btn btn-lg btn-block btn-danger">Stop Mining</button>
 			</div>
 
 		</div>

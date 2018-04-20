@@ -8,7 +8,7 @@ module.exports = Vue.component('wallet-card', {
 		<div class="card-header">
 			<h4 class="my-0 font-weight-normal">Wallet</h4>
 		</div>
-		<div class="card-body">
+		<div class="card-body" v-if="mining">
 			<h1 class="card-title pricing-card-title">{{minerOutput.shares}}
 				<small class="text-muted">accepted shares</small>
 			</h1>
@@ -18,14 +18,25 @@ module.exports = Vue.component('wallet-card', {
 				v-bind:disabled="!addressIsValid">View Dashboard
 			</button>
 		</div>
-		<input type="text"
-			placeholder="Your ZEC Address (e.g. t1hASvMj8e6TXWryuB3L5TKXJB7XfNioZP3)"
-			class="form-control"
-			v-bind:class="{ 'is-valid': addressIsValid, 'is-invalid': !addressIsValid}"
-			style="margin-bottom: 10px; width:100%;"
-			v-model.trim="address"
-			v-bind:disabled="mining"
-		 >
+		<div class="card-body" v-else>
+			<label><b>Your Wallet Address:</b></label>
+			<input type="text"
+				placeholder="Your ZEC Address (e.g. t1hASvMj8e6TXWryuB3L5TKXJB7XfNioZP3)"
+				class="form-control bottom-space"
+				v-bind:class="{ 'is-valid': addressIsValid, 'is-invalid': !addressIsValid}"
+				style="width:100%;"
+				v-model.trim="address"
+				v-bind:disabled="mining"
+			 >
+
+       <label><b>Suggested Wallets:</b></label>
+       <a href="https://walletgenerator.net/?currency=Zcash"
+         target="_blank"
+         class="btn btn-lg btn-block btn-outline-primary">
+         WalletGenerator.net</a>
+       <a href="https://jaxx.io/" target="_blank"
+         class="btn btn-lg btn-block btn-outline-primary">Jaxx</a>
+		 </div>
 	</div>
 	`,
 	props: ['mineroutput', 'mining'],
