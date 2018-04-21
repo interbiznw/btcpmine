@@ -19,48 +19,59 @@ module.exports = Vue.component('mine-card', {
 			<h1 class="card-title pricing-card-title">
 				{{minerOutput.sols}} <small class="text-muted"> sol/s </small>
 			</h1>
-			<!--<div class="input-group" style="margin-bottom: 10px;">
+
+			<div class="input-group mb-3">
 				<div class="input-group-prepend">
-					<label class="input-group-text" for="inputGroupSelect01">
+					<label class="input-group-text" for="mode">Mode</label>
+				</div>
+				<select class="custom-select" id="mode"
+					v-model="mode" v-bind:disabled="isMining">
+					<option value="CPU">CPU</option>
+					<option value="NVIDIA">GPU NVIDIA</option>
+					<option value="AMD">GPU AMD</option>
+				</select>
+			</div>
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="threads">
 						<span v-if="mode === 'CPU'"># Threads</span>
 						<span v-else># GPUs</span>
 					</label>
-					<input type="number" v-model="cores" min="1" v-bind:disabled="isMining"/>
 				</div>
-			</div>-->
+				<input type="number" v-model="cores" min="1" v-bind:disabled="isMining"/>
+			</div>
 
-			<table class="table">
-				<tbody style="font-size: 22px;">
-					<tr>
+			<!--<table class="table" style="margin-bottom:0px;">
+				<tbody>
+					<tr style="font-size: 22px;">
 						<th scope="row"v-if="mode === 'CPU'">1 Thread(s)</th>
 						<th scope="row" v-else>1 GPU(s)</th>
 						<td>
-							<button type="button" class="link">+</button> / <button type="button" class="link">-</button>
+							<button type="button" class="link">+</button> /
+							<button type="button" class="link">-</button>
 						</td>
 					</tr>
-					<tr>
-						<div class="input-group">
-							<select class="custom-select " v-model="mode" v-bind:disabled="isMining">
-								<option value="CPU">CPU</option>
-								<option value="NVIDIA">GPU NVIDIA</option>
-								<option value="AMD">GPU AMD</option>
-							</select>
-						</div>
-					</tr>
 				</tbody>
-			</table>
+			</table>-->
 
 			<div>
 					<button type="submit"
 						v-on:click="startMining"
 						v-if="!isMining"
 						class="btn btn-lg btn-block btn-success"
-					>Start Mining</button>
+					>
+					<span class="oi oi-play-circle center-icon" style="top: 4px; margin-right: 3px;"></span>
+						Start Mining
+					</button>
 					<button type="submit"
 						v-on:click="stopMining"
 						v-else
 						class="btn btn-lg btn-block btn-danger"
-					>Stop Mining</button>
+					>
+						<span class="oi oi-media-stop center-icon" style="top: 4px; margin-right: 3px;"></span>
+						Stop Mining
+					</button>
 			</div>
 
 		</div>

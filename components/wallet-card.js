@@ -1,4 +1,5 @@
 /* global localStorage */
+const {shell} = require('electron');
 const Vue = require('vue/dist/vue.common');
 const utils = require('../lib/utils');
 
@@ -30,12 +31,15 @@ module.exports = Vue.component('wallet-card', {
 			 >
 
        <label><b>Suggested Wallets:</b></label>
-       <a href="https://walletgenerator.net/?currency=Zcash"
-         target="_blank"
+       <button
+				 v-on:click="openExternal('https://walletgenerator.net/?currency=Zcash')"
          class="btn btn-lg btn-block btn-outline-primary">
-         WalletGenerator.net</a>
-       <a href="https://jaxx.io/" target="_blank"
-         class="btn btn-lg btn-block btn-outline-primary">Jaxx</a>
+         WalletGenerator.net
+				 </button>
+       <button
+				 v-on:click="openExternal('https://jaxx.io/')"
+         class="btn btn-lg btn-block btn-outline-primary">
+				 Jaxx</button>
 		 </div>
 	</div>
 	`,
@@ -49,6 +53,11 @@ module.exports = Vue.component('wallet-card', {
 		},
 		minerOutput() {
 			return this.mineroutput;
+		}
+	},
+	methods: {
+		openExternal(url) {
+			shell.openExternal(url);
 		}
 	},
 	watch: {

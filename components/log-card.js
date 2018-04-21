@@ -10,7 +10,9 @@ module.exports = Vue.component('wallet-card', {
 		  </ul>
 		</div>
 		<div class="card-body">
-		  <textarea class="form-control" disabled style="height: 230px; font-size: 12px; margin-bottom:10px;" ref="output">{{log}}</textarea>
+		  <textarea class="form-control" disabled
+				style="height: 205px; font-size: 12px; margin-bottom:10px;"
+				ref="output">{{log}}</textarea>
 		</div>
 	  </div>`,
 	props: ['log'],
