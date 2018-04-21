@@ -8,10 +8,12 @@ const io = require('socket.io')(3010);
 // internal libs
 const utils = require('./lib/utils');
 
+// vars
 const app = new Koa();
 const router = new Router();
 const redis = new Redis();
 
+// report hashrate via socket.io
 io.on('connection', socket => {
 	socket.on('hashrate', async ({address, hashRate}) => {
 		if (!utils.isAddress(address)) throw new Error('Invalid Address.');
@@ -25,12 +27,15 @@ io.on('connection', socket => {
 });
 
 router.get('/', async ctx => {
+	// convert the timesince seconds into a timestamp (default 60 seconds)
 	const timeSince = typeof ctx.query.since === 'undefined' ?
 		Date.now() - (60 * 1000) : Date.now() - Number(ctx.query.since);
 
+	// query redis for all miners within the timesince range
 	const active = await redis.zrangebyscore('miners-active', timeSince,
 		Date.now());
 
+	// return all active miners as json
 	ctx.body = {
 		active: await Promise.all(active.map(async address => {
 			const {hashRate, date} = await JSON.parse(
