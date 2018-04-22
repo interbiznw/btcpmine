@@ -40,8 +40,16 @@ module.exports = Vue.component('mine-card', {
 				<input class="form-control" type="number" v-model="cores"
 					min="1" max="16" v-bind:disabled="isMining"/>
 				<div class="input-group-append">
-					<button class="btn btn-outline-secondary" type="button" v-bind:disabled="isMining">+</button>
-					<button class="btn btn-outline-secondary" type="button" v-bind:disabled="isMining">-</button>
+					<button class="btn btn-outline-secondary"
+						type="button"
+						v-bind:disabled="isMining"
+						v-on:click="upCores"
+						>+</button>
+					<button class="btn btn-outline-secondary"
+						type="button"
+						v-bind:disabled="isMining"
+						v-on:click="downCores"
+						>-</button>
 				</div>
 			</div>
 
@@ -80,6 +88,14 @@ module.exports = Vue.component('mine-card', {
 		cores: localStorage.getItem('cores') || 1
 	}),
 	methods: {
+		upCores() {
+			if (this.cores < 16) this.cores++;
+			localStorage.setItem('cores', this.cores);
+		},
+		downCores() {
+			if (this.cores > 1) this.cores--;
+			localStorage.setItem('cores', this.cores);
+		},
 		async startMining() {
 			localStorage.setItem('address', this.address);
 			localStorage.setItem('mode', this.mode);
