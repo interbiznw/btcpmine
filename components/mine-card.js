@@ -26,34 +26,24 @@ module.exports = Vue.component('mine-card', {
 				</div>
 				<select class="custom-select" id="mode"
 					v-model="mode" v-bind:disabled="isMining">
-					<option value="CPU">CPU</option>
-					<option value="NVIDIA">GPU NVIDIA</option>
-					<option value="AMD">GPU AMD</option>
+					<option value="CPU">NiceHash v0.5c - CPU</option>
+					<option value="NVIDIA">NiceHash v0.5c - GPU NVIDIA</option>
+					<option value="AMD">NiceHash v0.5c - GPU AMD</option>
 				</select>
 			</div>
 
 			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<label class="input-group-text" for="threads">
-						<span v-if="mode === 'CPU'"># Threads</span>
-						<span v-else># GPUs</span>
-					</label>
+			  <div class="input-group-prepend">
+			    <span class="input-group-text" v-if="mode === 'CPU'">Threads</span>
+					<span class="input-group-text" v-else>GPUs</span>
+			  </div>
+				<input class="form-control" type="number" v-model="cores"
+					min="1" max="16" v-bind:disabled="isMining"/>
+				<div class="input-group-append">
+					<button class="btn btn-outline-secondary" type="button" v-bind:disabled="isMining">+</button>
+					<button class="btn btn-outline-secondary" type="button" v-bind:disabled="isMining">-</button>
 				</div>
-				<input type="number" v-model="cores" min="1" v-bind:disabled="isMining"/>
 			</div>
-
-			<!--<table class="table" style="margin-bottom:0px;">
-				<tbody>
-					<tr style="font-size: 22px;">
-						<th scope="row"v-if="mode === 'CPU'">1 Thread(s)</th>
-						<th scope="row" v-else>1 GPU(s)</th>
-						<td>
-							<button type="button" class="link">+</button> /
-							<button type="button" class="link">-</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>-->
 
 			<div>
 					<button type="submit"
