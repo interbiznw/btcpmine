@@ -9,7 +9,7 @@ module.exports = Vue.component('update-check', {
 		<strong>Out of date!</strong> Please update zmine
 		<a style="color: inherit; text-decoration: underline;"
 			v-on:click="openExternal('https://github.com/super3/zmine/releases')"
-			href="#">here</a>.
+			href="javascript:void(0);">here</a>.
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		</button>
@@ -26,6 +26,7 @@ module.exports = Vue.component('update-check', {
 			this.latestVersion = version;
 		};
 
+		// check every 15 minutes
 		setInterval(getLatestVersion, 15 * 60 * 1000);
 	}
 });
