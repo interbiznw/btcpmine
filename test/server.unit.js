@@ -2,6 +2,7 @@
 const supertest = require('supertest');
 
 const app = require('../server');
+const helper = require('./helper');
 
 const api = supertest('http://localhost:' + 3000);
 
@@ -20,10 +21,14 @@ describe('Server Routes', () => {
 	});
 
 	describe('Balance Route', () => {
-
+		it('invalid address', async () => {
+			await api.get(`/balance/${helper.invalidAddr}`).expect(401);
+		});
 	});
 
 	describe('Withdraw Route', () => {
-
+		it('invalid address', async () => {
+			await api.get(`/withdraw/${helper.invalidAddr}`).expect(401);
+		});
 	});
 });

@@ -50,6 +50,8 @@ router.get('/', async ctx => {
 });
 
 router.get('/balance/:address', async ctx => {
+	if (!utils.isAddress(ctx.params.address)) ctx.throw(401, 'Invalid Address.');
+
 	ctx.body = await redis.hgetall(`miner-balance:${ctx.params.address}`) || {};
 	ctx.body.balance = (ctx.body.shares || 0) - (ctx.body.withdrawn || 0);
 	ctx.body.withdrawn = ctx.body.withdrawn || 0;
@@ -58,8 +60,9 @@ router.get('/balance/:address', async ctx => {
 const withdrawThreshold = 1;
 
 router.get('/withdraw/:address', async ctx => {
-	const info = await redis.hgetall(`miner-balance:${ctx.params.address}`) || {};
+	if (!utils.isAddress(ctx.params.address)) ctx.throw(401, 'Invalid Address.');
 
+	const info = await redis.hgetall(`miner-balance:${ctx.params.address}`) || {};
 	const shares = info.shares || 0;
 	const withdrawn = info.withdrawn || 0;
 	const balance = shares - withdrawn;
