@@ -18,6 +18,7 @@ io.on('connection', socket => {
 	socket.on('hashrate', async ({address, hashRate}) => {
 		if (!utils.isAddress(address)) throw new Error('Invalid Address.');
 
+		// update miner's current hashrate
 		await redis.zadd('miners-active', Date.now(), address);
 		await redis.lpush(`miner:${address}`, JSON.stringify({
 			hashRate,
@@ -52,6 +53,7 @@ router.get('/', async ctx => {
 router.get('/balance/:address', async ctx => {
 	if (!utils.isAddress(ctx.params.address)) ctx.throw(401, 'Invalid Address.');
 
+	// calculate and display balance/withdrawn
 	ctx.body = await redis.hgetall(`miner-balance:${ctx.params.address}`) || {};
 	ctx.body.balance = (ctx.body.shares || 0) - (ctx.body.withdrawn || 0);
 	ctx.body.withdrawn = ctx.body.withdrawn || 0;
@@ -69,6 +71,7 @@ router.get('/withdraw/:address', async ctx => {
 
 	let success = false;
 
+	// check to see if we have enough to withdraw
 	if (balance > withdrawThreshold) {
 		await redis.hincrby(`miner-balance:${ctx.params.address}`,
 			'withdrawn', withdrawThreshold);
@@ -91,9 +94,6 @@ async function daemon() {
 		await redis.hset(`miner-balance:${worker}`, 'shares', validShares);
 }
 
-setInterval(() => daemon().catch(e => console.log(e)), 5 * 60 * 1000);
-daemon().catch(e => console.log(e));
-
 app
 	.use(json())
 	.use(router.routes())
@@ -102,6 +102,11 @@ app
 /* istanbul ignore next */
 // start the server, if running this script alone
 if (require.main === module)
+	// start daemon
+	daemon().catch(e => console.log(e));
+	setInterval(() => daemon().catch(e => console.log(e)), 5 * 60 * 1000);
+
+	// start webserver
 	app.listen(3000, () => {
 		console.log('Server started! At http://localhost:' + 3000);
 	});
