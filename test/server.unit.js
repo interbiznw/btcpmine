@@ -1,4 +1,5 @@
 /* global it, describe, before */
+const chai = require('chai');
 const supertest = require('supertest');
 
 const app = require('../server');
@@ -35,6 +36,13 @@ describe('Server Routes', () => {
 		});
 		it('invalid address', async () => {
 			await api.get(`/withdraw/${helper.invalidAddr}`).expect(401);
+		});
+	});
+
+	describe('Daemon', () => {
+		it('daemon runs and returns true', async () => {
+			const result = await app.daemon();
+			chai.expect(result).to.equal(true);
 		});
 	});
 });

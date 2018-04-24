@@ -92,6 +92,8 @@ async function daemon() {
 
 	for (const {worker, validShares} of data.workers)
 		await redis.hset(`miner-balance:${worker}`, 'shares', validShares);
+
+	return true;
 }
 
 app
@@ -101,7 +103,7 @@ app
 
 /* istanbul ignore next */
 // start the server, if running this script alone
-if (require.main === module)
+if (require.main === module) {
 	// start daemon
 	daemon().catch(e => console.log(e));
 	setInterval(() => daemon().catch(e => console.log(e)), 5 * 60 * 1000);
@@ -110,5 +112,7 @@ if (require.main === module)
 	app.listen(3000, () => {
 		console.log('Server started! At http://localhost:' + 3000);
 	});
+}
 
 module.exports = app;
+module.exports.daemon = daemon;
