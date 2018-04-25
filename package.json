@@ -1,6 +1,6 @@
 {
   "name": "zmine",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "GUI for mining Zcash.",
   "main": "index.js",
   "scripts": {
@@ -37,9 +37,12 @@
     "jquery": "^3.3.1",
     "mz": "^2.7.0",
     "popper.js": "^1.14.1",
+    "socket.io": "^2.1.0",
+    "socket.io-client": "^2.1.0",
     "vue": "^2.5.14"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
     "coveralls": "^3.0.0",
     "electron": "^1.8.3",
     "electron-builder": "^20.8.1",

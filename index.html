@@ -7,82 +7,38 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>zmine</title>
+    <title>zMine</title>
 
-    <!-- Bootstrap core CSS -->
+    <!-- CSS -->
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="cover.css" rel="stylesheet">
+    <link href="css/pricing.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
   </head>
 
-  <body class="text-center">
+  <body>
 
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column" id="app">
-      <header class="masthead mb-auto">
-        <div class="inner">
-          <h3 class="masthead-brand">zmine</h3>
-        </div>
-      </header>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+      <h5 class="my-0 mr-md-auto font-weight-normal">zMine</h5>
+      <a class="btn btn-outline-primary" href="#">Feedback</a>
+    </div>
 
-      <main class="inner cover">
-        <div class="alert alert-primary alert-dismissible fade show" role="alert" v-if="version !== latestVersion">
-          <strong>Out of date!</strong> Please update zmine
-          <a style="color: inherit; text-decoration: underline;" v-on:click="openExternal('https://github.com/super3/zmine/releases')" href="#">here</a>.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+    <div class="container" id="app">
+      <Update-Check></Update-Check>
 
-        <div v-if="!supported">
-          <p>Sorry, your platform is not currently supported.</p>
-        </div>
-				<div class="form-group" v-else-if="downloaded" style="width:500px;">
-					<input type="text" placeholder="Your ZEC Address (e.g. t1hASvMj8e6TXWryuB3L5TKXJB7XfNioZP3)"
-						class="form-control"
-						v-bind:class="{ 'is-valid': addressIsValid, 'is-invalid': !addressIsValid}"
-						style="margin-bottom: 10px; width:100%;"
-						v-model.trim="address"
-            v-bind:disabled="isMining"
-					 >
+      <div v-if="!supported">
+        <p>Sorry, your platform isn't supported!</p>
+      </div>
 
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <button type="submit" v-on:click="startMining" v-if="!isMining" class="btn btn-success">Start Mining</button>
-              <button type="submit" v-on:click="stopMining" v-else class="btn btn-danger">Stop Mining</button>
-            </div>
-            <select class="custom-select" v-model="mode" v-bind:disabled="isMining">
-              <option value="CPU">CPU</option>
-              <option value="NVIDIA">GPU NVIDIA</option>
-              <option value="AMD">GPU AMD</option>
-            </select>
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">
-                <span v-if="mode === 'CPU'"># Threads</span>
-                <span v-else># GPUs</span>
-              </label>
-              <input type="number" v-model="cores" style="width: 100px;" min="1" v-bind:disabled="isMining"/>
-            </div>
-          </div>
+      <div v-else-if="!downloaded">
+          <p>Please wait while the miner downloads...</p>
+      </div>
 
-          <p>{{minerOutput.sols}} Sols/s and {{minerOutput.shares}} Accepted Shares</p>
-          <textarea class="form-control" disabled style="height: 230px; font-size: 12px; margin-bottom:10px;" ref="output">{{output}}</textarea>
-          <button type="submit" class="btn btn-info" v-on:click="openExternal(`https://zcash.flypool.org/miners/${address}/dashboard`)" v-bind:disabled="!addressIsValid">View Dashboard</button>
-        </div>
-        <div v-else>
-          <p>Downloading Miner. Please wait...</p>
-        </div>
-      </main>
-
-      <footer class="mastfoot mt-auto">
-        <div class="inner">
-          <p>Powered by <a style="color: inherit; text-decoration: underline;" v-on:click="openExternal('https://github.com/super3/zmine')" href="#">zmine</a> ({{version}}).</p>
-        </div>
-      </footer>
+      <Main-Panel v-else></Main-Panel>
     </div>
 
     <script>
-    require("./scripts/app.js");
+      require("./scripts/app.js");
     </script>
   </body>
 </html>
