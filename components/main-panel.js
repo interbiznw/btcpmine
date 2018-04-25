@@ -33,8 +33,6 @@ module.exports = Vue.component('main-panel', {
 	methods: {
 		minerUpdate(output, minerOutput) {
 			this.output = output;
-			// scroll to the latest output
-			this.$refs.output.scrollTop = this.$refs.output.scrollHeight;
 			this.minerOutput = minerOutput;
 		},
 		addressChange(address) {

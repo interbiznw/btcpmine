@@ -3,7 +3,8 @@ const Vue = require('vue/dist/vue.common');
 const io = require('socket.io-client');
 
 // internal libs
-const extMiner = require('../lib/ext-miner.js');
+const extMiner = require('../lib/ext-miner');
+const utils = require('../lib/utils');
 
 // vars
 const socket = io(process.env.DEV ? 'http://localhost:3010' :
@@ -17,7 +18,7 @@ module.exports = Vue.component('mine-card', {
 		</div>
 		<div class="card-body">
 			<h1 class="card-title pricing-card-title">
-				{{minerOutput.sols}} <small class="text-muted"> sol/s </small>
+				{{minerOutput.sols}} <small class="text-muted"> sol/s</small>
 			</h1>
 
 			<div class="input-group mb-3">
@@ -57,6 +58,7 @@ module.exports = Vue.component('mine-card', {
 					<button type="submit"
 						v-on:click="startMining"
 						v-if="!isMining"
+						v-bind:disabled="!validAddress"
 						class="btn btn-lg btn-block btn-success"
 					>
 					<span class="oi oi-play-circle center-icon" style="top: 4px; margin-right: 3px;"></span>
@@ -85,8 +87,13 @@ module.exports = Vue.component('mine-card', {
 			shares: 0
 		},
 		mode: localStorage.getItem('mode') || 'CPU',
-		cores: localStorage.getItem('cores') || 1
+		cores: localStorage.getItem('cores') || 8
 	}),
+	computed: {
+		validAddress() {
+			return utils.isAddress(this.address);
+		}
+	},
 	methods: {
 		upCores() {
 			if (this.cores < 16) this.cores++;
