@@ -5,11 +5,22 @@
 [![License](https://img.shields.io/badge/license-AGPLv3-blue.svg?label=license)](https://github.com/Storj/super3/zmine/blob/master/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/super3/zmine.svg)](https://gitHub.com//super3/zmine/graphs/contributors/)
 
+### Run Client
 ```bash
 git clone https://github.com/super3/zmine
 cd ~/zmine
 npm install
 npm start
+```
+
+### Run Server
+Run with [PM2](http://pm2.keymetrics.io/).
+
+```bash
+git clone https://github.com/super3/zmine
+cd ~/zmine
+npm install pm2 -g
+pm2 start process.json
 ```
 
 ## Official Threads
