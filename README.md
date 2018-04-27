@@ -14,8 +14,6 @@ npm start
 ```
 
 ### Run Server
-Run with [PM2](http://pm2.keymetrics.io/).
-
 ```bash
 git clone https://github.com/super3/zmine
 cd ~/zmine
