@@ -13,6 +13,8 @@ test_script:
   # Output useful info for debugging.
   - node --version
   - npm --version
+  # Show home directory
+  - node -p "os.homedir()"
   # run tests
   - npm test
 
