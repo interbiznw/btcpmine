@@ -7,6 +7,9 @@ environment:
 install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version x64
+  - choco install redis-64
+  - redis-server --service-install
+  - redis-server --service-start
   # install modules
   - npm install
 
