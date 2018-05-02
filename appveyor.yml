@@ -20,8 +20,10 @@ test_script:
   - npm --version
   # Show home directory
   - node -p "os.homedir()"
-  # run tests
+  # Run tests
   - npm test
+  # Build Windows binary
+  - npm run package
 
 # Don't actually build.
 build: off
