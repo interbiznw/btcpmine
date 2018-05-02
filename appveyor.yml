@@ -22,6 +22,8 @@ test_script:
   - node -p "os.homedir()"
   # Run tests
   - npm test
+
+build_script:
   # Build Windows binary
   - npm run package
 
