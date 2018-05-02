@@ -41,10 +41,10 @@ deploy:
         secure: QbUdvt8xBGWxhuqNsGX/cSHNxQz2Zpn6tnhKlMX/KLT3i2dwPP2LVJiPiTxh7b+I
     artifact: zMine
     draft: true
-    prerelease: true
+    prerelease: false
     on:
         branch: master                 # release from master branch only
-        appveyor_repo_tag: false       # deploy on tag push only
+        appveyor_repo_tag: true      # deploy on tag push only
 
 # Don't actually build.
 #build: off
