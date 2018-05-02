@@ -25,6 +25,7 @@ router.use(async (ctx, next) => {
 	try {
 		await next();
 	} catch (err) {
+		console.warn(err);
 		ctx.status = err.statusCode || err.status || 500;
 
 		ctx.body = {
@@ -40,18 +41,23 @@ router.get('/', async ctx => {
 
 	// all active miners as json
 	ctx.body = {
-		active: await db.getActive(timeSince)
+		active: await db.getActive({timeSince})
 	};
 });
 
 router.get('/balance/:address', async ctx => {
-	ctx.body = await db.getBalance(ctx.params.address);
+	ctx.body = await db.getBalance({
+		address: ctx.params.address
+	});
 });
 
 const withdrawThreshold = 1;
 
 router.get('/withdraw/:address', async ctx => {
-	await db.withdraw(ctx.params.address, withdrawThreshold);
+	await db.withdraw({
+		address: ctx.params.address,
+		withdrawThreshold
+	});
 });
 
 // https://api.nanopool.org/v1/zec/shareratehistory/:address/:worker
