@@ -31,6 +31,8 @@ deploy:
     release: zmine-v$(appveyor_build_version)
     description: 'Automatic Build'
     provider: GitHub
+    auth_token:
+        secure: 
     artifact: zmine-win32-x64/*
     draft: false
     prerelease: true
