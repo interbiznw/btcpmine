@@ -25,10 +25,11 @@ test_script:
 
 build_script:
   # Build Windows binary
-  - npm run package
+  - npm run dist
+  - ls dist
 
 artifacts:
-  - path: zmine-win32-x64
+  - path: dist/zmine*.exe
     name: zMine
 
 deploy:
@@ -37,7 +38,7 @@ deploy:
     provider: GitHub
     auth_token:
         secure: QbUdvt8xBGWxhuqNsGX/cSHNxQz2Zpn6tnhKlMX/KLT3i2dwPP2LVJiPiTxh7b+I
-    artifact: zmine-win32-x64/*
+    artifact: dist/zmine*.exe
     draft: false
     prerelease: true
     on:
