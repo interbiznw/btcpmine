@@ -40,7 +40,7 @@ deploy:
     auth_token:
         secure: QbUdvt8xBGWxhuqNsGX/cSHNxQz2Zpn6tnhKlMX/KLT3i2dwPP2LVJiPiTxh7b+I
     artifact: zMine
-    draft: false
+    draft: true
     prerelease: true
     on:
         branch: master                 # release from master branch only
