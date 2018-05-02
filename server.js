@@ -26,10 +26,7 @@ router.use(async (ctx, next) => {
 		await next();
 	} catch (err) {
 		ctx.status = err.statusCode || err.status || 500;
-
-		ctx.body = {
-			message: err.message
-		};
+		ctx.body = {};
 	}
 });
 
@@ -57,6 +54,8 @@ router.get('/withdraw/:address', async ctx => {
 		address: ctx.params.address,
 		withdrawThreshold
 	});
+
+	ctx.body = {};
 });
 
 // https://api.nanopool.org/v1/zec/shareratehistory/:address/:worker

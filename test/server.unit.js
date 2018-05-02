@@ -2,6 +2,7 @@
 const chai = require('chai');
 const supertest = require('supertest');
 
+const db = require('../lib/db');
 const app = require('../server');
 const helper = require('./helper');
 
@@ -32,9 +33,19 @@ describe('Server Routes', () => {
 
 	describe('Withdraw Route', () => {
 		it('withdraw should return ok', async () => {
+			await db.setShares({
+				address: helper.validAddr,
+				shares: Infinity
+			});
+
 			await api.get(`/withdraw/${helper.validAddr}`).expect(200);
 		});
 		it('invalid address', async () => {
+			await db.setShares({
+				address: helper.invalidAddr,
+				shares: Infinity
+			});
+
 			await api.get(`/withdraw/${helper.invalidAddr}`).expect(500);
 		});
 	});
