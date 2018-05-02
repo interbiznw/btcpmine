@@ -51,7 +51,9 @@ describe('Server Routes', () => {
 	});
 
 	describe('Daemon', () => {
-		it('daemon runs and returns true', async () => {
+		it('daemon runs and returns true', async function () {
+			this.timeout(10 * 1000);
+
 			const result = await app.daemon();
 			chai.expect(result).to.equal(true);
 		});

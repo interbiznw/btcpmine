@@ -6,7 +6,6 @@ const axios = require('axios');
 const io = require('socket.io')(3010);
 
 // internal libs
-const utils = require('./lib/utils');
 const db = require('./lib/db');
 
 // vars
