@@ -72,6 +72,7 @@ router.get('/withdraw/:address', async ctx => {
 	let success = false;
 
 	// check to see if we have enough to withdraw
+	/* istanbul ignore next */
 	if (balance > withdrawThreshold) {
 		await redis.hincrby(`miner-balance:${ctx.params.address}`,
 			'withdrawn', withdrawThreshold);
