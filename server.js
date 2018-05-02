@@ -25,7 +25,6 @@ router.use(async (ctx, next) => {
 	try {
 		await next();
 	} catch (err) {
-		console.warn(err);
 		ctx.status = err.statusCode || err.status || 500;
 
 		ctx.body = {
