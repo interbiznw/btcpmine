@@ -6,7 +6,7 @@ const axios = require('axios');
 const io = require('socket.io')(3010);
 
 // internal libs
-const utils = require('./lib/utils');
+const db = require('./lib/db');
 
 // vars
 const app = new Koa();
@@ -16,15 +16,17 @@ const redis = new Redis();
 // report hashrate via socket.io
 io.on('connection', socket => {
 	socket.on('hashrate', async ({address, hashRate}) => {
-		if (!utils.isAddress(address)) throw new Error('Invalid Address.');
-
-		// update miner's current hashrate
-		await redis.zadd('miners-active', Date.now(), address);
-		await redis.lpush(`miner:${address}`, JSON.stringify({
-			hashRate,
-			date: Date.now()
-		}));
+		await db.report({address, hashRate});
 	});
+});
+
+app.use(async (ctx, next) => {
+	try {
+		await next();
+	} catch (err) {
+		ctx.status = err.statusCode || err.status || 500;
+		ctx.body = {};
+	}
 });
 
 router.get('/', async ctx => {
@@ -32,54 +34,27 @@ router.get('/', async ctx => {
 	const timeSince = typeof ctx.query.since === 'undefined' ?
 		Date.now() - (60 * 1000) : Date.now() - Number(ctx.query.since);
 
-	// query redis for all miners within the timesince range
-	const active = await redis.zrangebyscore('miners-active', timeSince,
-		Date.now());
-
-	// return all active miners as json
+	// all active miners as json
 	ctx.body = {
-		active: await Promise.all(active.map(async address => {
-			const {hashRate, date} = await JSON.parse(
-				await redis.lindex(`miner:${address}`, 0));
-			return {
-				address,
-				reportedHashRate: hashRate,
-				lastSeen: date
-			};
-		}))
+		active: await db.getActive({timeSince})
 	};
 });
 
 router.get('/balance/:address', async ctx => {
-	if (!utils.isAddress(ctx.params.address)) ctx.throw(401, 'Invalid Address.');
-
-	// calculate and display balance/withdrawn
-	ctx.body = await redis.hgetall(`miner-balance:${ctx.params.address}`) || {};
-	ctx.body.balance = (ctx.body.shares || 0) - (ctx.body.withdrawn || 0);
-	ctx.body.withdrawn = ctx.body.withdrawn || 0;
+	ctx.body = await db.getBalance({
+		address: ctx.params.address
+	});
 });
 
 const withdrawThreshold = 1;
 
 router.get('/withdraw/:address', async ctx => {
-	if (!utils.isAddress(ctx.params.address)) ctx.throw(401, 'Invalid Address.');
+	await db.withdraw({
+		address: ctx.params.address,
+		withdrawThreshold
+	});
 
-	const info = await redis.hgetall(`miner-balance:${ctx.params.address}`) || {};
-	const shares = info.shares || 0;
-	const withdrawn = info.withdrawn || 0;
-	const balance = shares - withdrawn;
-
-	let success = false;
-
-	// check to see if we have enough to withdraw
-	/* istanbul ignore next */
-	if (balance > withdrawThreshold) {
-		await redis.hincrby(`miner-balance:${ctx.params.address}`,
-			'withdrawn', withdrawThreshold);
-		success = true;
-	}
-
-	ctx.body = {success};
+	ctx.body = {};
 });
 
 // https://api.nanopool.org/v1/zec/shareratehistory/:address/:worker
