@@ -30,7 +30,7 @@ build_script:
   - ls dist
 
 artifacts:
-  - path: dist/zmine*.exe
+  - path: 'dist/zmine*.exe'
     name: zMine
 
 deploy:
@@ -39,7 +39,7 @@ deploy:
     provider: GitHub
     auth_token:
         secure: QbUdvt8xBGWxhuqNsGX/cSHNxQz2Zpn6tnhKlMX/KLT3i2dwPP2LVJiPiTxh7b+I
-    artifact: dist/zmine*.exe
+    artifact: 'dist/zmine*.exe'
     draft: false
     prerelease: true
     on:
