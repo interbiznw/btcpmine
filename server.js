@@ -21,6 +21,18 @@ io.on('connection', socket => {
 	});
 });
 
+router.use(async (ctx, next) => {
+	try {
+		await next();
+	} catch (err) {
+		ctx.status = err.statusCode || err.status || 500;
+
+		ctx.body = {
+			message: err.message
+		};
+	}
+});
+
 router.get('/', async ctx => {
 	// convert the timesince seconds into a timestamp (default 60 seconds)
 	const timeSince = typeof ctx.query.since === 'undefined' ?
