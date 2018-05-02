@@ -11,6 +11,7 @@ install:
   - redis-server --service-install
   - redis-server --service-start
   # install modules
+  - rm package-lock.json
   - npm install
 
 # Post-install test scripts.
