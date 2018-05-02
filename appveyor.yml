@@ -36,7 +36,7 @@ deploy:
     description: 'Automatic Build'
     provider: GitHub
     auth_token:
-        secure:
+        secure: QbUdvt8xBGWxhuqNsGX/cSHNxQz2Zpn6tnhKlMX/KLT3i2dwPP2LVJiPiTxh7b+I
     artifact: zmine-win32-x64/*
     draft: false
     prerelease: true
