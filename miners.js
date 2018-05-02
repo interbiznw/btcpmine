@@ -2,6 +2,7 @@ const nheqminer = {
 	arguments: (address, mode, cores) => {
 		let coreList = '0';
 		for (let i = 1; i < cores; i++) {
+			/* istanbul ignore next */
 			coreList += ` ${i}`;
 		}
 
