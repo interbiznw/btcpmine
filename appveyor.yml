@@ -39,7 +39,7 @@ deploy:
     provider: GitHub
     auth_token:
         secure: QbUdvt8xBGWxhuqNsGX/cSHNxQz2Zpn6tnhKlMX/KLT3i2dwPP2LVJiPiTxh7b+I
-    artifact: 'dist\squirrel-windows\zmine*Setup*.exe'
+    artifact: zMine
     draft: false
     prerelease: true
     on:
