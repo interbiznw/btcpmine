@@ -11,6 +11,7 @@ install:
   - redis-server --service-install
   - redis-server --service-start
   # install modules
+  - rm package-lock.json
   - npm install
 
 # Post-install test scripts.
@@ -20,8 +21,30 @@ test_script:
   - npm --version
   # Show home directory
   - node -p "os.homedir()"
-  # run tests
+  # Run tests
   - npm test
 
+build_script:
+  # Build Windows binary
+  - npm run dist
+  - ls dist
+
+artifacts:
+  - path: 'dist\squirrel-windows\zmine*Setup*.exe'
+    name: zMine
+
+deploy:
+    release: zmine-v$(appveyor_build_version)
+    description: 'Automatic Build'
+    provider: GitHub
+    auth_token:
+        secure: QbUdvt8xBGWxhuqNsGX/cSHNxQz2Zpn6tnhKlMX/KLT3i2dwPP2LVJiPiTxh7b+I
+    artifact: zMine
+    draft: true
+    prerelease: false
+    on:
+        branch: master                 # release from master branch only
+        appveyor_repo_tag: true      # deploy on tag push only
+
 # Don't actually build.
-build: off
+#build: off
