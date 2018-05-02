@@ -27,12 +27,16 @@ build_script:
   # Build Windows binary
   - npm run package
 
+artifacts:
+  - path: zmine-win32-x64
+    name: zMine
+
 deploy:
     release: zmine-v$(appveyor_build_version)
     description: 'Automatic Build'
     provider: GitHub
     auth_token:
-        secure: 
+        secure:
     artifact: zmine-win32-x64/*
     draft: false
     prerelease: true
