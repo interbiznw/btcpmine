@@ -20,17 +20,6 @@ const nheqminer = {
 			'x',
 			...modes[mode]
 		];
-	},
-	parse: (minerOutput, line) => {
-		const parts = line.split(' ');
-
-		/* istanbul ignore next */
-		if (parts.length > 7 && parts[7].startsWith('Sols/s'))
-			minerOutput.sols = Number(parts[6]);
-
-		/* istanbul ignore next */
-		if (parts.length > 4 && parts[3] === 'Accepted' && parts[4] === 'share')
-			minerOutput.shares++;
 	}
 };
 
@@ -43,21 +32,6 @@ const dstm = {
 			'--port',	`3333`,
 			'--user', address
 		];
-	},
-	parse: (minerOutput, line) => {
-		const parts = line.trim().split(' ').filter(line => line !== '');
-
-		/* istanbul ignore next */
-		for (let i = 0; i < parts.length; i++) {
-			if (parts[i] === 'Sol/s:') {
-				minerOutput.sols = Number(parts[i + 1]);
-				break;
-			}
-		}
-
-		/* istanbul ignore next */
-		if (parts[parts.length - 1] === '+')
-			minerOutput.shares++;
 	}
 };
 
