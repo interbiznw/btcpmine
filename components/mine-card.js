@@ -110,10 +110,20 @@ module.exports = Vue.component('mine-card', {
 
 			let lastPing = 0;
 
-			extMiner.start(this.address, this.mode, this.cores, async (minerOutput, data) => {
+			const parser = await extMiner.start(this.address, this.mode, this.cores);
+
+			console.log(parser);
+
+			parser.on('raw', data => {
+				this.output += data.toString();
+
+				this.$emit('update', this.output, this.minerOutput);
+			});
+
+			parser.on('update', async minerOutput => {
+				console.log(minerOutput);
 				this.minerOutput = minerOutput;
 
-				this.output += data;
 				this.$emit('update', this.output, this.minerOutput);
 
 				if (lastPing < Date.now() - (5 * 1000)) {
