@@ -6,12 +6,12 @@ const extMiner = require('../lib/ext-miner');
 describe('ext-miner', () => {
 	describe('install()', () => {
 		it('should run with no directory', async function () {
-			this.timeout(10 * 1000);
+			this.timeout(100 * 1000);
 			await extMiner.install();
 		});
 
 		it('should run when there exists an empty directory', async function () {
-			this.timeout(10 * 1000);
+			this.timeout(100 * 1000);
 
 			await del(extMiner.minerFolder, {force: true});
 			await fs.mkdir(extMiner.minerFolder);
