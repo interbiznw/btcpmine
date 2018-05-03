@@ -27,9 +27,7 @@ module.exports = Vue.component('mine-card', {
 				</div>
 				<select class="custom-select" id="mode"
 					v-model="mode" v-bind:disabled="isMining">
-					<option value="CPU">NiceHash v0.5c - CPU</option>
-					<option value="NVIDIA">NiceHash v0.5c - GPU NVIDIA</option>
-					<option value="AMD">NiceHash v0.5c - GPU AMD</option>
+					<option v-bind:value="miner" v-for="miner in miners">{{miner}}</option>
 				</select>
 			</div>
 
@@ -87,7 +85,8 @@ module.exports = Vue.component('mine-card', {
 			shares: 0
 		},
 		mode: localStorage.getItem('mode') || 'CPU',
-		cores: localStorage.getItem('cores') || 8
+		cores: localStorage.getItem('cores') || 8,
+		miners: extMiner.miners
 	}),
 	computed: {
 		validAddress() {
