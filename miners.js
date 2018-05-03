@@ -15,7 +15,7 @@ const nheqminer = {
 		return [
 			'-l', 'us1-zcash.flypool.org:3333',
 			'-u',
-			`${address}`,
+			address,
 			'-p',
 			'x',
 			...modes[mode]
@@ -34,13 +34,47 @@ const nheqminer = {
 	}
 };
 
+const dstm = {
+	// zm --server eu1-zcash.flypool.org  --port 3333 --user t1Ja3TR6QBRDUd897sLn1YSeKc8HnWmvHbu
+	arguments: (address, mode, cores) => {
+		console.log(cores);
+		return [
+			'--server', 'us1-zcash.flypool.org',
+			'--port',	`3333`,
+			'--user', address
+		];
+	},
+	parse: (minerOutput, line) => {
+		const parts = line.trim().split(' ').filter(line => line !== '');
+
+		/* istanbul ignore next */
+		for (let i = 0; i < parts.length; i++) {
+			if (parts[i] === 'Sol/s:') {
+				minerOutput.sols = Number(parts[i + 1]);
+				break;
+			}
+		}
+
+		/* istanbul ignore next */
+		if (parts[parts.length - 1] === '+')
+			minerOutput.shares++;
+	}
+};
+
+//
+
 module.exports = {
 	win32: {
-		x64: {
+		x64: {/*
 			url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Windows_x64_nheqminer-5c.zip',
 			binary: 'Windows_x64_nheqminer-5c/nheqminer.exe',
 			arguments: nheqminer.arguments,
 			parse: nheqminer.parse
+		*/
+			url: 'https://github.com/nemosminer/DSTM-equihash-miner/releases/download/DSTM-0.6/zm_0.6_win.zip',
+			binary: 'zm_0.6_win/zm.exe',
+			arguments: dstm.arguments,
+			parse: dstm.parse
 		}
 	},
 	linux: {
