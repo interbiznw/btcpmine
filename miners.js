@@ -1,57 +1,73 @@
-const nheqminer = {
-	arguments: (address, mode, cores) => {
-		let coreList = '0';
-		for (let i = 1; i < cores; i++) {
-			/* istanbul ignore next */
-			coreList += ` ${i}`;
-		}
+/* eslint camelcase: "off" */
+const nheqminerArguments = address => {
+	return [
+		'-l', 'us1-zcash.flypool.org:3333',
+		'-u',
+		address,
+		'-p',
+		'x'
+	];
+};
 
-		const modes = {
-			CPU: ['-t', cores],
-			NVIDIA: ['-cd', coreList],
-			AMD: ['-od', coreList]
-		};
-
-		return [
-			'-l', 'us1-zcash.flypool.org:3333',
-			'-u',
-			`${address}`,
-			'-p',
-			'x',
-			...modes[mode]
-		];
+const nheqminerPlatforms = {
+	win32_x64: {
+		url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Windows_x64_nheqminer-5c.zip',
+		binary: 'Windows_x64_nheqminer-5c/nheqminer.exe'
 	},
-	parse: (minerOutput, line) => {
-		const parts = line.split(' ');
-
-		/* istanbul ignore next */
-		if (parts.length > 7 && parts[7].startsWith('Sols/s'))
-			minerOutput.sols = Number(parts[6]);
-
-		/* istanbul ignore next */
-		if (parts.length > 4 && parts[3] === 'Accepted' && parts[4] === 'share')
-			minerOutput.shares++;
+	linux_x64: {
+		url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Ubuntu_16_04_x64_cuda_djezo_avx_nheqminer-5c.zip',
+		binary: 'nheqminer_16_04'
 	}
 };
 
-module.exports = {
-	win32: {
-		x64: {
-			url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Windows_x64_nheqminer-5c.zip',
-			binary: 'Windows_x64_nheqminer-5c/nheqminer.exe',
-			arguments: nheqminer.arguments,
-			parse: nheqminer.parse
-		}
+module.exports = [
+	{
+		title: 'NiceHash v0.5c - CPU',
+		arguments: (address, cores) => [...nheqminerArguments(address), '-t', cores],
+		platform: nheqminerPlatforms
 	},
-	linux: {
-		x64: {
-			url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Ubuntu_16_04_x64_cuda_djezo_avx_nheqminer-5c.zip',
-			binary: 'nheqminer_16_04',
-			arguments: nheqminer.arguments,
-			parse: nheqminer.parse
+	{
+		title: 'NiceHash v0.5c - NVIDIA GPU',
+		arguments: (address, cores) => [...nheqminerArguments(address), '-cd', Object.keys(Array.from(new Array(cores))).join(' ')],
+		platform: nheqminerPlatforms
+	},
+	{
+		title: 'NiceHash v0.5c - AMD GPU',
+		arguments: (address, cores) => [...nheqminerArguments(address), '-od', Object.keys(Array.from(new Array(cores))).join(' ')],
+		platform: nheqminerPlatforms
+	},
+	{
+		title: 'DSTM-0.6 - NVIDIA GPU',
+		arguments: address => [
+			'--server',
+			'us1-zcash.flypool.org',
+			'--port',
+			'3333',
+			'--user',
+			address
+		],
+		platform: {
+			win32_x64: {
+				url: 'https://github.com/nemosminer/DSTM-equihash-miner/releases/download/DSTM-0.6/zm_0.6_win.zip',
+				binary: 'zm_0.6_win/zm.exe'
+			}
 		}
 	}
-};
-
-// [10:55:16][0x00006040] Speed [15 sec]: 47.4667 I/s, 91.8667 Sols/s
-// [11:42:01][0x000033f0] stratum | Accepted share #4
+	// {
+	// 	title: 'EWBF-0.3.4b - NVIDIA GPU',
+	// 	arguments: address => [
+	// 		'--server',
+	// 		'us1-zcash.flypool.org',
+	// 		'--port',
+	// 		'3333',
+	// 		'--user',
+	// 		address
+	// 	],
+	// 	platform: {
+	// 		win32_x64: {
+	// 			url: 'https://github.com/nanopool/ewbf-miner/releases/download/v0.3.4b/Zec.miner.0.3.4b.zip',
+	// 			binary: 'miner.exe'
+	// 		}
+	// 	}
+	// }
+];
