@@ -8,3 +8,13 @@ after_script:
   - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
   - npm run dist
   - ls dist/*
+
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file:
+      - "dist/zmine*.AppImage"
+      - "dist/dist/zmine*.snap"
+  skip_cleanup: true
+  on:
+    tags: true
