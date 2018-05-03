@@ -20,19 +20,23 @@ describe('ext-miner', () => {
 		});
 	});
 
-	describe('start()', () => {
-		it('should start', async function () {
-			this.timeout(10 * 1000);
+	for (const miner of extMiner.miners) {
+		describe(miner, () => {
+			describe('start()', () => {
+				it('should start', async function () {
+					this.timeout(10 * 1000);
 
-			await extMiner.start('t1hASvMj8e6TXWryuB3L5TKXJB7XfNioZP3', 'CPU');
+					await extMiner.start('t1hASvMj8e6TXWryuB3L5TKXJB7XfNioZP3', miner, 1);
+				});
+			});
+
+			describe('stop()', () => {
+				it('should stop', async function () {
+					this.timeout(10 * 1000);
+
+					await extMiner.stop();
+				});
+			});
 		});
-	});
-
-	describe('stop()', () => {
-		it('should stop', async function () {
-			this.timeout(10 * 1000);
-
-			await extMiner.stop();
-		});
-	});
+	}
 });
