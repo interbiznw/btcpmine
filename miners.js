@@ -1,4 +1,5 @@
 /* eslint camelcase: "off" */
+
 const nheqminerArguments = address => {
 	return [
 		'-l', 'us1-zcash.flypool.org:3333',
@@ -54,14 +55,31 @@ module.exports = [
 		}
 	}
 	// {
+	// 	title: 'Claymore-12.6 - AMD GPU',
+	// 	arguments: address => [
+	// 		'-zpool',
+	// 		'ssl://us1-zcash.flypool.org:3443',
+	// 		'-zwal',
+	// 		address,
+	// 		'-zpsw',
+	// 		'z'
+	// 	],
+	// 	platform: {
+	// 		win32_x64: {
+	// 			url: 'https://github.com/nanopool/ClaymoreZECMiner/releases/download/v12.6/Claymore.s.ZCash.AMD.GPU.Miner.v12.6.zip',
+	// 			binary: 'ZecMiner64.exe'
+	// 		}
+	// 	}
+	// }
+	// {
 	// 	title: 'EWBF-0.3.4b - NVIDIA GPU',
 	// 	arguments: address => [
 	// 		'--server',
 	// 		'us1-zcash.flypool.org',
-	// 		'--port',
-	// 		'3333',
 	// 		'--user',
-	// 		address
+	// 		address,
+	// 		'--port',
+	// 		'3333'
 	// 	],
 	// 	platform: {
 	// 		win32_x64: {
