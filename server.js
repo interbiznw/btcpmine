@@ -14,6 +14,7 @@ const router = new Router();
 const redis = new Redis();
 
 // report hashrate via socket.io
+/* istanbul ignore next */
 io.on('connection', socket => {
 	socket.on('hashrate', async ({address, hashRate}) => {
 		await db.report({address, hashRate});
