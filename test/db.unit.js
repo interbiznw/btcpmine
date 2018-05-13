@@ -1,4 +1,4 @@
-/* global it, describe */
+/* global it, describe, before */
 
 const chai = require('chai');
 chai.use(require('chai-as-promised'));
@@ -6,7 +6,7 @@ chai.use(require('chai-as-promised'));
 const db = require('../lib/db');
 const helper = require('./helper');
 
-describe('Database', () => {
+describe.only('Database', () => {
 	describe('Miner Status', () => {
 			it('valid report', async () => {
 				const minerStatus = {address: helper.validAddr, hashRate: 50};
@@ -39,6 +39,12 @@ describe('Database', () => {
 	});
 	describe('Share Management', () => {
 		describe('Get Balance/Set Shares', () => {
+			before(async () => {
+				await db.redis.hset(`miner-balance:${helper.validAddr}`, 'shares', 0);
+				await db.redis.hset(`miner-balance:${helper.validAddr}`, 'withdrawn', 0);
+				await db.redis.hset(`miner-balance:${helper.validAddr}`, 'balance', 0);
+			});
+
 			it('invalid address', async () => {
 				const addr = {address: helper.invalidAddr};
 				await chai.assert.isRejected(db.getBalance(addr));
@@ -69,6 +75,12 @@ describe('Database', () => {
 			});
 		});
 		describe('Withdraw', () => {
+			before(async () => {
+				await db.redis.hset(`miner-balance:${helper.validAddr}`, 'shares', 0);
+				await db.redis.hset(`miner-balance:${helper.validAddr}`, 'withdrawn', 0);
+				await db.redis.hset(`miner-balance:${helper.validAddr}`, 'balance', 0);
+			});
+
 			it('set balance', async () => {
 				await db.setShares({address: helper.validAddr, shares: 50});
 			});
@@ -77,11 +89,11 @@ describe('Database', () => {
 				await chai.assert.isRejected(db.withdraw(withdraw));
 			});
 			it('withdraw 10', async () => {
-				await db.withdraw({address: helper.validAddr, withdrawThreshold: 25});
+				await db.withdraw({address: helper.validAddr, withdrawThreshold: 10});
 				const resp = await db.getBalance({address: helper.validAddr});
 				chai.expect(resp.shares).to.equal(50);
-				chai.expect(resp.balance).to.equal(25);
-				chai.expect(resp.withdrawn).to.equal(25);
+				chai.expect(resp.balance).to.equal(40);
+				chai.expect(resp.withdrawn).to.equal(10);
 			});
 			it('withdraw too much', async () => {
 				const withdraw = {address: helper.validAddr, withdrawThreshold: 150};
