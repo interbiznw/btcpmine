@@ -6,7 +6,7 @@ chai.use(require('chai-as-promised'));
 const db = require('../lib/db');
 const helper = require('./helper');
 
-describe.only('Database', () => {
+describe('Database', () => {
 	describe('Miner Status', () => {
 			it('valid report', async () => {
 				const minerStatus = {address: helper.validAddr, hashRate: 50};
