@@ -29,12 +29,12 @@ module.exports = [
 	},
 	{
 		title: 'NiceHash v0.5c - NVIDIA GPU',
-		arguments: (address, cores) => [...nheqminerArguments(address), '-cd', Object.keys(Array.from(new Array(cores))).join(' ')],
+		arguments: (address, cores) => [...nheqminerArguments(address), '-cd', Object.keys([...new Array(cores)]).join(' ')],
 		platform: nheqminerPlatforms
 	},
 	{
 		title: 'NiceHash v0.5c - AMD GPU',
-		arguments: (address, cores) => [...nheqminerArguments(address), '-od', Object.keys(Array.from(new Array(cores))).join(' ')],
+		arguments: (address, cores) => [...nheqminerArguments(address), '-od', Object.keys([...new Array(cores)]).join(' ')],
 		platform: nheqminerPlatforms
 	},
 	{

@@ -8,34 +8,34 @@ const helper = require('./helper');
 
 describe('Database', () => {
 	describe('Miner Status', () => {
-			it('valid report', async () => {
-				const minerStatus = {address: helper.validAddr, hashRate: 50};
-				chai.expect(await db.report(minerStatus)).to.equal(true);
-			});
+		it('valid report', async () => {
+			const minerStatus = {address: helper.validAddr, hashRate: 50};
+			chai.expect(await db.report(minerStatus)).to.equal(true);
+		});
 
-			it('invalid address in report', async () => {
-				const minerStatus = {address: helper.invalidAddr, hashRate: 50};
-				await chai.assert.isRejected(db.report(minerStatus));
-			});
+		it('invalid address in report', async () => {
+			const minerStatus = {address: helper.invalidAddr, hashRate: 50};
+			await chai.assert.isRejected(db.report(minerStatus));
+		});
 
-			it('invalid hashrate in report', async () => {
-				const minerStatus = {address: helper.validAddr, hashRate: 'bad'};
-				await chai.assert.isRejected(db.report(minerStatus));
-			});
+		it('invalid hashrate in report', async () => {
+			const minerStatus = {address: helper.validAddr, hashRate: 'bad'};
+			await chai.assert.isRejected(db.report(minerStatus));
+		});
 
-			it('check activer miners', async () => {
-				const timeSince = 10;
-				const expectResp = [
-					{
-						address: 't1aZvxRLCGVeMPFXvqfnBgHVEbi4c6g8MVa',
-						reportedHashRate: 50,
-						lastSeen: 1526177350409
-					}
-				];
-				const resp = await db.getActive({timeSince});
-				chai.expect(resp.address).to.equal(expectResp.address);
-				chai.expect(resp.reportedHashRate).to.equal(expectResp.reportedHashRate);
-			});
+		it('check activer miners', async () => {
+			const timeSince = 10;
+			const expectResp = [
+				{
+					address: 't1aZvxRLCGVeMPFXvqfnBgHVEbi4c6g8MVa',
+					reportedHashRate: 50,
+					lastSeen: 1526177350409
+				}
+			];
+			const resp = await db.getActive({timeSince});
+			chai.expect(resp.address).to.equal(expectResp.address);
+			chai.expect(resp.reportedHashRate).to.equal(expectResp.reportedHashRate);
+		});
 	});
 	describe('Share Management', () => {
 		describe('Get Balance/Set Shares', () => {
