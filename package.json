@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run testsuite && npm run linter",
     "testsuite": "./node_modules/.bin/mocha test/* --recursive --exit",
-    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --exit",
+    "coverage": "istanbul -x miners.js cover node_modules/mocha/bin/_mocha -- -R spec --exit",
     "linter": "xo",
     "start": "electron .",
     "package": "electron-packager .",
