@@ -41,11 +41,6 @@ describe('Server Routes', () => {
 			await api.get(`/withdraw/${helper.validAddr}`).expect(200);
 		});
 		it('invalid address', async () => {
-			await db.setShares({
-				address: helper.invalidAddr,
-				shares: Infinity
-			});
-
 			await api.get(`/withdraw/${helper.invalidAddr}`).expect(500);
 		});
 	});

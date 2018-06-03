@@ -1,7 +1,7 @@
 const Koa = require('koa');
+const json = require('koa-json');
 const Router = require('koa-router');
 const Redis = require('ioredis');
-const json = require('koa-json');
 const axios = require('axios');
 const io = require('socket.io')(3010);
 
@@ -21,6 +21,7 @@ io.on('connection', socket => {
 	});
 });
 
+// better error handling
 app.use(async (ctx, next) => {
 	try {
 		await next();
