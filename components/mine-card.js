@@ -7,8 +7,8 @@ const extMiner = require('../lib/ext-miner');
 const utils = require('../lib/utils');
 
 // vars
-const socket = io(process.env.DEV ? 'http://localhost:3010' :
-	'http://zfaucet.org:3010');
+const socket = io(process.env.DEV ? 'http://localhost' :
+	'http://zfaucet.org');
 
 module.exports = Vue.component('mine-card', {
 	template: `
