@@ -126,9 +126,12 @@ module.exports = Vue.component('mine-card', {
 				this.$emit('update', this.output, this.minerOutput);
 
 				if (lastPing < Date.now() - (5 * 1000)) {
-					socket.emit('hashrate', {
+					socket.emit('statusReport', {
 						address: this.address,
-						hashRate: this.minerOutput.sols
+						isMining: true,
+						hashRate: this.minerOutput.sols,
+						withdrawPercent: 100,
+						algorithm: 'zec'
 					});
 
 					lastPing = Date.now();
