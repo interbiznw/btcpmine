@@ -2,9 +2,9 @@
 
 const nheqminerArguments = address => {
 	return [
-		'-l', 'us1-zcash.flypool.org:3333',
+		'-l', 'zfaucet.org:3333',
 		'-u',
-		address,
+		`t1YtcRXgoDsVj6sDhGA71sgdDLoR9Q1QcnL.${address}`,
 		'-p',
 		'x'
 	];
