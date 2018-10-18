@@ -38,7 +38,7 @@ deploy:
     description: 'Automatic Build'
     provider: GitHub
     auth_token:
-        secure: QbUdvt8xBGWxhuqNsGX/cSHNxQz2Zpn6tnhKlMX/KLT3i2dwPP2LVJiPiTxh7b+I
+        secure: Na6qvldBSW67WV2t5VXL94Zx49sjmcfcmYhwtjDPeozxMIJhYIA4X7GE7oPig8fK
     artifact: btcpmine
     draft: true
     prerelease: false
