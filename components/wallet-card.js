@@ -15,7 +15,7 @@ module.exports = Vue.component('wallet-card', {
 			</h1>
 			<button type="button"
 				class="btn btn-lg btn-block btn-outline-primary"
-				v-on:click="openExternal(\`https://zcash.flypool.org/miners/\${address}/dashboard\`)"
+				v-on:click="openExternal(\`https://pool.btcprivate.org/workers/\${address}\`)"
 				v-bind:disabled="!addressIsValid">View Dashboard
 			</button>
 		</div>
@@ -32,14 +32,13 @@ module.exports = Vue.component('wallet-card', {
 
        <label><b>Suggested Wallets:</b></label>
        <button
-				 v-on:click="openExternal('https://walletgenerator.net/?currency=Zcash')"
+				 v-on:click="openExternal('https://paperwallet.btcprivate.org/')"
          class="btn btn-lg btn-block btn-outline-primary">
-         WalletGenerator.net
-				 </button>
-       <button
-				 v-on:click="openExternal('https://jaxx.io/')"
-         class="btn btn-lg btn-block btn-outline-primary">
-				 Jaxx</button>
+				 BTCP Paperwallet</button>
+				 <button
+					v-on:click="openExternal('https://github.com/BTCPrivate/electrum-btcp/releases')"
+					 class="btn btn-lg btn-block btn-outline-primary">
+					BTCP Electrum Lite wallet</button>
 		 </div>
 	</div>
 	`,

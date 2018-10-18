@@ -37,6 +37,7 @@ module.exports = [
 		arguments: (address, cores) => [...nheqminerArguments(address), '-od', Object.keys([...new Array(cores)]).join(' ')],
 		platform: nheqminerPlatforms
 	},
+	console.log(cores);
 	{
 		title: 'DSTM-0.6 - NVIDIA GPU',
 		arguments: address => [
@@ -45,7 +46,9 @@ module.exports = [
 			'--port',
 			'3032',
 			'--user',
-			address
+			address,
+			'--dev',
+			'0'
 		],
 		platform: {
 			win32_x64: {
