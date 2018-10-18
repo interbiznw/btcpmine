@@ -1,6 +1,6 @@
 {
   "name": "btcpmine",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "GUI for mining Bitcoin Private",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "start": "electron .",
     "package": "electron-packager .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder -wl"
   },
   "repository": {
     "type": "git",
