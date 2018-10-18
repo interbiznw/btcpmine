@@ -73,23 +73,23 @@ module.exports = [
 	// 		}
 	// 	}
 	// }
-	 {
-	 	title: 'EWBF-0.3.4b - NVIDIA GPU',
-	 	arguments: address => [
-	 		'--server',
-	 		'pool.btcprivate.org',
+	{
+		title: 'EWBF-0.3.4b - NVIDIA GPU',
+		arguments: address => [
+			'--server',
+			'pool.btcprivate.org',
 			'--port',
 			'3333',
-	 		'--user',
-	 		address,
+			'--user',
+			address,
 			'--pass',
 			'x'
-	 	],
-	 	platform: {
-	 		win32_x64: {
-	 			url: 'https://github.com/nanopool/ewbf-miner/releases/download/v0.3.4b/Zec.miner.0.3.4b.zip',
-	 			binary: 'miner.exe'
-	 		}
-	 	}
-	 }
+		],
+		platform: {
+			win32_x64: {
+				url: 'https://github.com/nanopool/ewbf-miner/releases/download/v0.3.4b/Zec.miner.0.3.4b.zip',
+				binary: 'miner.exe'
+			}
+		}
+	}
 ];
