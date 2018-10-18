@@ -4,7 +4,7 @@ const nheqminerArguments = address => {
 	return [
 		'-l', 'pool.btcprivate.org:2053',
 		'-u',
-		`b19wScZz4bqURz7zQoztFGyoSqExpizKEuN.${address}`,
+		`${address}`,
 		'-p',
 		'x'
 	];
@@ -12,8 +12,8 @@ const nheqminerArguments = address => {
 
 const nheqminerPlatforms = {
 	win32_x64: {
-		url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Windows_x64_nheqminer-5c.zip',
-		binary: 'Windows_x64_nheqminer-5c/nheqminer.exe'
+		url: 'https://github.com/interbiznw/nheqminer/releases/download/0.5-c_equi_cpu/nheqminer-0.5c-equi-cpu.zip',
+		binary: 'nheqminer.exe'
 	},
 	linux_x64: {
 		url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Ubuntu_16_04_x64_cuda_djezo_avx_nheqminer-5c.zip',
@@ -55,7 +55,7 @@ module.exports = [
 				binary: 'zm_0.6_win/zm.exe'
 			}
 		}
-	}
+	},
 	// {
 	// 	title: 'Claymore-12.6 - AMD GPU',
 	// 	arguments: address => [
@@ -73,21 +73,23 @@ module.exports = [
 	// 		}
 	// 	}
 	// }
-	// {
-	// 	title: 'EWBF-0.3.4b - NVIDIA GPU',
-	// 	arguments: address => [
-	// 		'--server',
-	// 		'us1-zcash.flypool.org',
-	// 		'--user',
-	// 		address,
-	// 		'--port',
-	// 		'3333'
-	// 	],
-	// 	platform: {
-	// 		win32_x64: {
-	// 			url: 'https://github.com/nanopool/ewbf-miner/releases/download/v0.3.4b/Zec.miner.0.3.4b.zip',
-	// 			binary: 'miner.exe'
-	// 		}
-	// 	}
-	// }
+	 {
+	 	title: 'EWBF-0.3.4b - NVIDIA GPU',
+	 	arguments: address => [
+	 		'--server',
+	 		'pool.btcprivate.org',
+			'--port',
+			'3333',
+	 		'--user',
+	 		address,
+			'--pass',
+			'x'
+	 	],
+	 	platform: {
+	 		win32_x64: {
+	 			url: 'https://github.com/nanopool/ewbf-miner/releases/download/v0.3.4b/Zec.miner.0.3.4b.zip',
+	 			binary: 'miner.exe'
+	 		}
+	 	}
+	 }
 ];
