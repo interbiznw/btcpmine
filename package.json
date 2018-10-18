@@ -11,7 +11,7 @@
     "start": "electron .",
     "package": "electron-packager .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder -wl"
+    "dist": "electron-builder"
   },
   "repository": {
     "type": "git",
