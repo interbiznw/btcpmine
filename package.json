@@ -1,12 +1,12 @@
 {
-  "name": "zmine",
+  "name": "btcpmine",
   "version": "0.2.5",
-  "description": "GUI for mining Zcash.",
+  "description": "GUI for mining Bitcoin Private",
   "main": "index.js",
   "scripts": {
     "test": "npm run testsuite && npm run linter",
     "testsuite": "./node_modules/.bin/mocha test/* --recursive --exit",
-    "coverage": "rm -rf ~/.zmine; istanbul -x miners.js cover node_modules/mocha/bin/_mocha -- -R spec --exit",
+    "coverage": "rm -rf ~/.btcpmine; istanbul -x miners.js cover node_modules/mocha/bin/_mocha -- -R spec --exit",
     "linter": "xo",
     "start": "electron .",
     "package": "electron-packager .",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/super3/zmine.git"
+    "url": "git+https://github.com/interbiznw/btcpmine.git"
   },
   "author": "Shawn Wilkinson <me@super3.org> (http://super3.org)",
   "contributors": [
@@ -24,9 +24,9 @@
   ],
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/super3/zmine/issues"
+    "url": "https://github.com/interbiznw/btcpmine/issues"
   },
-  "homepage": "https://github.com/super3/zmine#readme",
+  "homepage": "https://github.com/interbiznw/btcpmine#readme",
   "dependencies": {
     "axios": "^0.18.0",
     "base58check": "^2.0.0",
@@ -65,7 +65,7 @@
     }
   },
   "build": {
-    "appId": "zmine",
+    "appId": "btcpmine",
     "win": {
       "target": "squirrel"
     }

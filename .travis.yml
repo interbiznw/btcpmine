@@ -11,8 +11,8 @@ deploy:
   provider: releases
   api_key: "GITHUB OAUTH TOKEN"
   file:
-      - "dist/zmine*.AppImage"
-      - "dist/dist/zmine*.snap"
+      - "dist/btcpmine*.AppImage"
+      - "dist/dist/btcpmine*.snap"
   skip_cleanup: true
   on:
     tags: true

@@ -1,4 +1,4 @@
 module.exports = {
-	validAddr: 't1aZvxRLCGVeMPFXvqfnBgHVEbi4c6g8MVa',
-	invalidAddr: 'tbadPxpdgpzC7TUNtZLM7KCUieEYuJKkn'
+	validAddr: 'b19wScZz4bqURz7zQoztFGyoSqExpizKEuN',
+	invalidAddr: 'b1badScZz4bqURz7zQoztFGyoSqExpizKEuN'
 };

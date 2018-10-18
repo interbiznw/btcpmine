@@ -2,9 +2,9 @@
 
 const nheqminerArguments = address => {
 	return [
-		'-l', 'zfaucet.org:3333',
+		'-l', 'pool.btcprivate.org:2053',
 		'-u',
-		`t1YtcRXgoDsVj6sDhGA71sgdDLoR9Q1QcnL.${address}`,
+		`b19wScZz4bqURz7zQoztFGyoSqExpizKEuN.${address}`,
 		'-p',
 		'x'
 	];
@@ -41,9 +41,9 @@ module.exports = [
 		title: 'DSTM-0.6 - NVIDIA GPU',
 		arguments: address => [
 			'--server',
-			'us1-zcash.flypool.org',
+			'pool.btcprivate.org',
 			'--port',
-			'3333',
+			'3032',
 			'--user',
 			address
 		],

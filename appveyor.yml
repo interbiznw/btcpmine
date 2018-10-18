@@ -30,16 +30,16 @@ build_script:
   - ls dist
 
 artifacts:
-  - path: 'dist\squirrel-windows\zmine*Setup*.exe'
-    name: zMine
+  - path: 'dist\squirrel-windows\btcpmine*Setup*.exe'
+    name: btcpmine
 
 deploy:
-    release: zmine-v$(appveyor_build_version)
+    release: btcpmine-v$(appveyor_build_version)
     description: 'Automatic Build'
     provider: GitHub
     auth_token:
         secure: QbUdvt8xBGWxhuqNsGX/cSHNxQz2Zpn6tnhKlMX/KLT3i2dwPP2LVJiPiTxh7b+I
-    artifact: zMine
+    artifact: btcpmine
     draft: true
     prerelease: false
     on:
