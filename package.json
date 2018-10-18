@@ -30,7 +30,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "base58check": "^2.0.0",
-    "bootstrap": "^4.1.1",
+    "bootstrap": "^4.1.2",
     "dotenv": "^6.0.0",
     "extract-zip": "^1.6.7",
     "got": "^8.3.1",
