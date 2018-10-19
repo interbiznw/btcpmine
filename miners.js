@@ -36,6 +36,17 @@ const ewbfArguments = address => {
 	];
 };
 
+const claymoreArguments = address => {
+	return [
+		'-zpool',
+		'pool.btcprivate.org:2053',
+		'-zwal',
+		`${address}`,
+		'-zpsw',
+		'x'
+	];
+};
+
 const nheqminerPlatforms = {
 	win32_x64: {
 		url: 'https://github.com/interbiznw/nheqminer/releases/download/0.5-c_equi_cpu/nheqminer-0.5c-equi-cpu.zip',
@@ -61,6 +72,17 @@ const ewbfPlatforms = {
 	}
 };
 
+const claymorePlatforms = {
+	win32_x64: {
+		url: 'https://github.com/nanopool/ClaymoreZECMiner/releases/download/v12.6/Claymore.s.ZCash.AMD.GPU.Miner.v12.6.zip',
+		binary: 'ZecMiner64.exe'
+	},
+	linux_x64: {
+		url: 'https://github.com/nanopool/ClaymoreZECMiner/releases/download/v12.6/Claymore.s.ZCash.AMD.GPU.Miner.v12.6.-.LINUX.tar.gz',
+		binary: 'zecminer64'
+	}
+};
+
 module.exports = [
 	{
 		title: 'NiceHash v0.5c - CPU',
@@ -73,9 +95,9 @@ module.exports = [
 		platform: nheqminerPlatforms
 	},
 	{
-		title: 'NiceHash v0.5c - AMD GPU',
-		arguments: (address, cores) => [...nheqminerArguments(address), '-od', Object.keys([...new Array(cores)]).join(' ')],
-		platform: nheqminerPlatforms
+		title: 'Claymore Miner - AMD GPU',
+		arguments: (address, cores) => [...claymoreArguments(address), '-nofee', '1', '-allpools', '1'],
+		platform: claymorePlatforms
 	},
 	{
 		title: 'DSTM-0.6 - NVIDIA GPU',
