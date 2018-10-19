@@ -10,6 +10,32 @@ const nheqminerArguments = address => {
 	];
 };
 
+const dstmArguments = address => {
+	return [
+		'--server',
+		'pool.btcprivate.org',
+		'--port',
+		'2053',
+		'--user',
+		`${address}`,
+		'--pass',
+		'x'
+	];
+};
+
+const ewbfArguments = address => {
+	return [
+		'--server',
+		'pool.btcprivate.org',
+		'--port',
+		'2053',
+		'--user',
+		`${address}`,
+		'--pass',
+		'x'
+	];
+};
+
 const nheqminerPlatforms = {
 	win32_x64: {
 		url: 'https://github.com/interbiznw/nheqminer/releases/download/0.5-c_equi_cpu/nheqminer-0.5c-equi-cpu.zip',
@@ -18,6 +44,20 @@ const nheqminerPlatforms = {
 	linux_x64: {
 		url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Ubuntu_16_04_x64_cuda_djezo_avx_nheqminer-5c.zip',
 		binary: 'nheqminer_16_04'
+	}
+};
+
+const dstmPlatforms = {
+	win32_x64: {
+		url: 'https://github.com/nemosminer/DSTM-equihash-miner/releases/download/DSTM-0.6/zm_0.6_win.zip',
+		binary: 'zm_0.6_win/zm.exe'
+	}
+};
+
+const ewbfPlatforms = {
+	win32_x64: {
+		url: 'https://github.com/nanopool/ewbf-miner/releases/download/v0.3.4b/Zec.miner.0.3.4b.zip',
+		binary: 'miner.exe'
 	}
 };
 
@@ -39,23 +79,14 @@ module.exports = [
 	},
 	{
 		title: 'DSTM-0.6 - NVIDIA GPU',
-		arguments: address => [
-			'--server',
-			'pool.btcprivate.org',
-			'--port',
-			'3032',
-			'--user',
-			address,
-			'--dev',
-			'0'
-		],
-		platform: {
-			win32_x64: {
-				url: 'https://github.com/nemosminer/DSTM-equihash-miner/releases/download/DSTM-0.6/zm_0.6_win.zip',
-				binary: 'zm_0.6_win/zm.exe'
-			}
-		}
+		arguments: (address, cores) => [...dstmArguments(address), '--dev', Object.keys([...new Array(cores)]).join(' ')],
+		platform: dstmPlatforms
 	},
+	{
+		title: 'EWBF-0.3.4b - NVIDIA GPU',
+		arguments: (address, cores) => [...ewbfArguments(address), '--cuda_devices', Object.keys([...new Array(cores)]).join(' ')],
+		platform: ewbfPlatforms
+	}
 	// {
 	// 	title: 'Claymore-12.6 - AMD GPU',
 	// 	arguments: address => [
@@ -73,23 +104,7 @@ module.exports = [
 	// 		}
 	// 	}
 	// }
-	{
-		title: 'EWBF-0.3.4b - NVIDIA GPU',
-		arguments: address => [
-			'--server',
-			'pool.btcprivate.org',
-			'--port',
-			'3333',
-			'--user',
-			address,
-			'--pass',
-			'x'
-		],
-		platform: {
-			win32_x64: {
-				url: 'https://github.com/nanopool/ewbf-miner/releases/download/v0.3.4b/Zec.miner.0.3.4b.zip',
-				binary: 'miner.exe'
-			}
-		}
-	}
+
 ];
+
+console.log(module.exports[3].arguments);
