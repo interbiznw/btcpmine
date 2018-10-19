@@ -96,7 +96,7 @@ module.exports = [
 	},
 	{
 		title: 'Claymore Miner - AMD GPU',
-		arguments: (address, cores) => [...claymoreArguments(address), '-nofee', '1', '-allpools', '1'],
+		arguments: address => [...claymoreArguments(address), '-nofee', '1', '-allpools', '1'],
 		platform: claymorePlatforms
 	},
 	{
