@@ -1,3 +1,4 @@
+const {shell} = require('electron');
 const axios = require('axios');
 const Vue = require('vue/dist/vue.common');
 const {version} = require('../package.json');
@@ -8,7 +9,7 @@ module.exports = Vue.component('update-check', {
 		role="alert" v-if="version !== latestVersion">
 		<strong>Out of date!</strong> Please update btcpmine
 		<a style="color: inherit; text-decoration: underline;"
-			v-on:click="openExternal('https://github.com/interbiznw/btcpmine/releases')"
+		v-on:click="openExternal('https://github.com/interbiznw/btcpmine/releases')"
 			href="javascript:void(0);">here</a>.
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
@@ -27,6 +28,12 @@ module.exports = Vue.component('update-check', {
 		};
 
 		// check every 15 minutes
-		setInterval(getLatestVersion, 15 * 60 * 1000);
-	}
+		setInterval(getLatestVersion, 1 * 60 * 100);
+	},
+	methods: {
+		openExternal(url) {
+			shell.openExternal(url);
+		}
+	},
+
 });
