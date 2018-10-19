@@ -10,7 +10,7 @@ app.on('ready', () => {
 		icon: path.join(__dirname, 'assets/icons/png/64x64.png')
 
 	});
-	//win.setMenu(null);
+	win.setMenu(null);
 
 	win.loadURL(url.format({
 		pathname: path.join(__dirname, 'index.html'),
