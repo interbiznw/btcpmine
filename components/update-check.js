@@ -21,12 +21,11 @@ module.exports = Vue.component('update-check', {
 		latestVersion: version
 	}),
 	async created() {
-
 		const startupCheckNewVersion = async () => {
 			const packageUrl = 'https://raw.githubusercontent.com/interbiznw/btcpmine/master/package.json';
 			const {data: {version}} = await axios.get(packageUrl);
 			this.latestVersion = version;
-			console.log("firstcheck on load");
+			console.log('firstcheck on load');
 		};
 
 		startupCheckNewVersion();
@@ -35,7 +34,7 @@ module.exports = Vue.component('update-check', {
 			const packageUrl = 'https://raw.githubusercontent.com/interbiznw/btcpmine/master/package.json';
 			const {data: {version}} = await axios.get(packageUrl);
 			this.latestVersion = version;
-			console.log("subsequent timed checks")
+			console.log('subsequent timed checks');
 		};
 
 		// check every 15 minutes
