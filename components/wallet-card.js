@@ -38,7 +38,7 @@ module.exports = Vue.component('wallet-card', {
 				 <button
 					v-on:click="openExternal('https://github.com/BTCPrivate/electrum-btcp/releases')"
 					 class="btn btn-lg btn-block btn-outline-primary">
-					BTCP Electrum Lite wallet</button>
+					BTCP Electrum lite wallet</button>
 		 </div>
 	</div>
 	`,
