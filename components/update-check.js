@@ -26,8 +26,8 @@ module.exports = Vue.component('update-check', {
 			const packageUrl = 'https://raw.githubusercontent.com/interbiznw/btcpmine/master/package.json';
 			const {data: {version}} = await axios.get(packageUrl);
 			this.latestVersion = version;
-			document = this;
-			document.getElementById("version").innerHTML = 'Current Version: ' + appVersion;
+			// eslint-disable-next-line no-undef
+			document.getElementById('version').innerHTML = 'Current Version: ' + appVersion;
 			console.log('firstcheck on load');
 		};
 
