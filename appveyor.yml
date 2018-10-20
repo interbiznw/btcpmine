@@ -38,7 +38,7 @@ build_script:
   - ls dist
 
 artifacts:
-  - path: 'dist\squirrel-windows\btcpminer.exe'
+  - path: 'dist\squirrel-windows\btcpmine*Setup*.exe'
     name: btcpmine
 
 deploy:
