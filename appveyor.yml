@@ -1,7 +1,15 @@
 platform: x64
 
+skip_tags: true
+
 environment:
   nodejs_version: "8"
+
+branches:
+  only:
+    - master
+  except:
+    - dev
 
 # Install scripts. (runs after repo cloning)
 install:
@@ -30,12 +38,12 @@ build_script:
   - ls dist
 
 artifacts:
-  - path: 'dist\squirrel-windows\btcpmine*Setup*.exe'
+  - path: 'dist\squirrel-windows\btcpmine*OneClick*.exe'
     name: btcpmine
 
 deploy:
     release: btcpmine-v$(appveyor_build_version)
-    description: 'Automatic Build'
+    description: '# BTCPMine - One click miner for Bitcoin Private'
     provider: GitHub
     auth_token:
         secure: Na6qvldBSW67WV2t5VXL94Zx49sjmcfcmYhwtjDPeozxMIJhYIA4X7GE7oPig8fK
@@ -43,6 +51,7 @@ deploy:
     draft: true
     prerelease: false
     on:
+        branch: master                # release from master branch only
         appveyor_repo_tag: false      # deploy on tag push only
 
 # Don't actually build.
