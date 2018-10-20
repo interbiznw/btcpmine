@@ -1,7 +1,13 @@
-# WINDOWS VERSION ONLY CURRENTLY: btcpmine.Setup.1.0.17.exe
+# WINDOWS VERSION ONLY CURRENTLY
+
+Current version here: https://github.com/interbiznw/btcpmine/releases
 
 
 ## Changelog
+
+btcpmine-v1.0.24
+* added current version string on main display
+* changed app icon to be dissimilar to btcp electrum/full node wallet
 
 btcpmine-v1.0.18
 * fixed AMD support
