@@ -38,7 +38,7 @@ build_script:
   - ls dist
 
 artifacts:
-  - path: 'dist\squirrel-windows\btcpmine*OneClick*.exe'
+  - path: 'dist\squirrel-windows\btcpminer.exe'
     name: btcpmine
 
 deploy:
