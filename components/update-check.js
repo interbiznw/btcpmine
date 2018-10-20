@@ -2,6 +2,7 @@ const {shell} = require('electron');
 const axios = require('axios');
 const Vue = require('vue/dist/vue.common');
 const {version} = require('../package.json');
+const appVersion = require('../package.json').version;
 
 module.exports = Vue.component('update-check', {
 	template: `
@@ -25,6 +26,7 @@ module.exports = Vue.component('update-check', {
 			const packageUrl = 'https://raw.githubusercontent.com/interbiznw/btcpmine/master/package.json';
 			const {data: {version}} = await axios.get(packageUrl);
 			this.latestVersion = version;
+			document.getElementById("version").innerHTML = "Current Version: " + appVersion;
 			console.log('firstcheck on load');
 		};
 
