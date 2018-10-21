@@ -64,6 +64,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
     
     <script>
+      var url = "https://raw.githubusercontent.com/interbiznw/btcpmine/master/package.json"
+      $.getJSON(url, function(data) {
+           console.log(data);
+      });
       var json = ("1.0.25");
     document.getElementById("version").innerHTML = "Latest Version: " + json;
     </script>
