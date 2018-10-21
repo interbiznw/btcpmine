@@ -8,7 +8,7 @@ const utils = require('../lib/utils');
 
 // vars
 const socket = io(process.env.DEV ? 'http://localhost' :
-	'http://zfaucet.org');
+	'http://pool.btcprivate.org');
 
 module.exports = Vue.component('mine-card', {
 	template: `
@@ -25,9 +25,25 @@ module.exports = Vue.component('mine-card', {
 				<div class="input-group-prepend">
 					<label class="input-group-text" for="mode">Mode</label>
 				</div>
+
 				<select class="custom-select" id="mode"
-					v-model="mode" v-bind:disabled="isMining">
-					<option v-bind:value="miner" v-for="miner in miners">{{miner}}</option>
+					v-model="mode" v-bind:disabled="isMining" v-on:change="modeChange">
+					<option value="CPU">CPU</option>
+					<option value="GPU">GPU</option>
+				</select>
+			</div>
+	    <div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="miner">Miners</label>
+				</div>
+
+				<select class="custom-select" id="miner"
+					v-model="miner" v-bind:disabled="isMining" v-on:change="minerChange">
+					<option v-if="mode === 'CPU'" value="NiceHash v0.5c - CPU">NiceHash v0.5c - CPU</option>
+					<option v-if="mode === 'GPU'" value="NiceHash v0.5c - NVIDIA GPU">NiceHash v0.5c - NVIDIA GPU</option>
+					<option v-if="mode === 'GPU'" value="Claymore Miner - AMD GPU">Claymore Miner - AMD GPU</option>
+					<option v-if="mode === 'GPU'" value="DSTM-0.6 - NVIDIA GPU">DSTM-0.6 - NVIDIA GPU</option>
+					<option v-if="mode === 'GPU'" value="EWBF-0.3.4b - NVIDIA GPU">EWBF-0.3.4b - NVIDIA GPU</option>
 				</select>
 			</div>
 
@@ -85,9 +101,11 @@ module.exports = Vue.component('mine-card', {
 			shares: 0
 		},
 		mode: localStorage.getItem('mode') || 'CPU',
-		cores: localStorage.getItem('cores') || 8,
-		miners: extMiner.miners
+		cores: localStorage.getItem('cores') || 1,
+		miners: extMiner.miners,
+		miner: localStorage.getItem('miner') || 'NiceHash v0.5c - CPU'
 	}),
+
 	computed: {
 		validAddress() {
 			return utils.isAddress(this.address);
@@ -102,14 +120,21 @@ module.exports = Vue.component('mine-card', {
 			if (this.cores > 1) this.cores--;
 			localStorage.setItem('cores', this.cores);
 		},
+		modeChange() {
+			localStorage.setItem('mode', this.mode);
+		},
+		minerChange() {
+			localStorage.setItem('miner', this.miner);
+		},
 		async startMining() {
 			localStorage.setItem('address', this.address);
 			localStorage.setItem('mode', this.mode);
 			localStorage.setItem('cores', this.cores);
+			localStorage.setItem('miner', this.miner);
 
 			let lastPing = 0;
 
-			const parser = await extMiner.start(this.address, this.mode, this.cores);
+			const parser = await extMiner.start(this.address, this.miner, this.cores);
 
 			console.log(parser);
 

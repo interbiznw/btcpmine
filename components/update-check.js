@@ -11,7 +11,7 @@ module.exports = Vue.component('update-check', {
 		<strong>Out of date!</strong> Please update btcpmine
 		<a style="color: inherit; text-decoration: underline;"
 		v-on:click="openExternal('https://github.com/interbiznw/btcpmine/releases')"
-			href="javascript:void(0);">here</a>.
+			href="javascript:void(0);">HERE</a>. Newest Version: {{latestVersion}}.
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		</button>

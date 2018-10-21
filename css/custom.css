@@ -1,7 +1,7 @@
 .hidden { display: none; }
 
 [v-cloak] { display: none; }
-
+body {background-color: #696969;}
 button.link {
 	display:inline-block;
 	position:relative;
