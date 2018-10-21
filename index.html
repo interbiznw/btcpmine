@@ -43,68 +43,6 @@
           <div class="mastfoot">
             <div class="inner">
               <p>Built by BTCP Dev @J62 <a href="https://interbiznw.github.io"> Donate</a></p>
-              <h2>Donate BTCP Below - How much do you want to donate?</h2>
-  <p><input type="text" id="donationAmt" size="30" placeholder="Enter amount of BTCP to donate"></p>
-  <p><input type="button" value="Set Donate Amount" id="somebutton" onclick="addText()"></p>
-
-  <br><br>
-  <div id="setAmount"></div>
-
-  <script>
-    var amtD;
-    function addText() {
-      amtD = document.getElementById('donationAmt').value;
-      var setText = "Donate amount set to: " + document.getElementById('donationAmt').value;
-      var donateBtcp = document.getElementById('donationAmt').value;
-      document.getElementById('setAmount').innerHTML = setText;
-    }
-  </script>
-  
-    <br><br><br><br>
-
-  <!-- Set parameters and actions //-->
-  <script id="btcp_widget_data" async>
-    var btcpWidget = {};
-    function BTCPWidgetLoad() {
-      btcpWidget.data = {
-        "id": "btcp_widget",
-        "buttonData": "buy_A1_0",
-        "merchantid": "343",
-        "walletid": "24",
-        "amount": amtD,
-        "description" : "Button Description",
-        "transactiondetails" :
-         {
-        "itemId"    : 0,
-        "itemName"  :"None",
-        "userID"    :"0"
-         }
-      };
-      btcpWidget.onPaymentSuccess = function(data) {
-        alert("Payment success! Data:\n\n" + JSON.stringify(data));
-      };
-      btcpWidget.onPaymentFail = function(data) {
-        alert("Payment failed! Reason: " + data.reason);
-      }
-      var s = document.createElement("script");
-      s.type = "text/javascript";
-      s.id = "btcp_widget";
-      s.src = "//btcppay.com/widget.js";
-      document.getElementById("setAmount").after(s);
-    }
-    var stopCheck = false;
-    function check() {
-      while (!stopCheck) {
-        if (!amtD) {
-          return setTimeout(check, 1000);
-        } else {
-          stopCheck = true;
-        }
-      }
-      BTCPWidgetLoad();
-    }
-    check();
-  </script>
             </div>
           </div>
 
