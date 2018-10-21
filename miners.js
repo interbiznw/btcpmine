@@ -86,26 +86,31 @@ const claymorePlatforms = {
 module.exports = [
 	{
 		title: 'NiceHash v0.5c - CPU',
+		minerMode: 'CPU',
 		arguments: (address, cores) => [...nheqminerArguments(address), '-t', cores],
 		platform: nheqminerPlatforms
 	},
 	{
 		title: 'NiceHash v0.5c - NVIDIA GPU',
+		minerMode: 'GPU',
 		arguments: (address, cores) => [...nheqminerArguments(address), '-cd', Object.keys([...new Array(cores)]).join(' ')],
 		platform: nheqminerPlatforms
 	},
 	{
 		title: 'Claymore Miner - AMD GPU',
+		minerMode: 'GPU',
 		arguments: address => [...claymoreArguments(address), '-nofee', '1', '-allpools', '1'],
 		platform: claymorePlatforms
 	},
 	{
 		title: 'DSTM-0.6 - NVIDIA GPU',
+		minerMode: 'GPU',
 		arguments: (address, cores) => [...dstmArguments(address), '--dev', Object.keys([...new Array(cores)]).join(' ')],
 		platform: dstmPlatforms
 	},
 	{
 		title: 'EWBF-0.3.4b - NVIDIA GPU',
+		minerMode: 'GPU',
 		arguments: (address, cores) => [...ewbfArguments(address), '--cuda_devices', Object.keys([...new Array(cores)]).join(' ')],
 		platform: ewbfPlatforms
 	}
@@ -129,4 +134,4 @@ module.exports = [
 
 ];
 
-console.log(module.exports[3].arguments);
+// console.log(module.exports[4].arguments);
