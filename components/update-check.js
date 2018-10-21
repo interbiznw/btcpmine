@@ -19,7 +19,7 @@ module.exports = Vue.component('update-check', {
 	`,
 	data: () => ({
 		version,
-	  latestVersion: version
+		latestVersion: version
 	}),
 	async created() {
 		const startupCheckNewVersion = async () => {
