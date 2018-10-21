@@ -67,10 +67,9 @@
       var url = "https://raw.githubusercontent.com/interbiznw/btcpmine/master/package.json"
       $.getJSON(url, function(data) {
            var latestVersion = (data.version);
-           console.log(latestVersion);
+           console.log("Queried Latest Version: " + latestVersion);
+           document.getElementById("version").innerHTML = "Latest Version: " + latestVersion;
       });
-      var json = ("1.0.25");
-    document.getElementById("version").innerHTML = "Latest Version: " + json;
     </script>
     
   </body>
