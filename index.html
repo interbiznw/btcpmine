@@ -36,9 +36,9 @@
             <div class="lead" id="version"></div>
             <p class="lead">Simple, Fast, and Easy to use!</p>
             <p class="lead">Download and start mining in minutes!</p>
-            <p class="lead">
-              <a href="https://github.com/interbiznw/btcpmine/releases/tag/btcpmine-v1.0.25" class="btn btn-lg btn-secondary">Download Here</a>
-            </p>
+            <div class="lead" id="download_button">
+              <a href="https://github.com/interbiznw/btcpmine/releases/" class="btn btn-lg btn-secondary">Download Here</a>
+            </div>
           </div>
 
           <div class="mastfoot">
@@ -69,8 +69,9 @@
            var latestVersion = (data.version);
            console.log("Queried Latest Version: " + latestVersion);
            document.getElementById("version").innerHTML = "Latest Version: " + latestVersion;
+           document.getElementById("download_button").innerHTML = "<a href='https://github.com/interbiznw/btcpmine/releases/tag/btcpmine-v" + latestVersion + "' class='btn btn-lg btn-secondary'>Download Here</a>"
       });
     </script>
-    
+
   </body>
 </html>
