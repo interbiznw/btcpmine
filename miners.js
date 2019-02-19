@@ -71,7 +71,7 @@ const dstmPlatforms = {
 
 const ewbfPlatforms = {
 	win32_x64: {
-		url: 'https://btcpcommunity.com.com/ewbf-0_6.zip',
+		url: 'https://btcpcommunity.com/ewbf-0_6.zip',
 		binary: 'miner.exe'
 	}
 };
