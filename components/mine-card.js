@@ -43,7 +43,7 @@ module.exports = Vue.component('mine-card', {
 					<option v-if="mode === 'GPU'" value="NiceHash v0.5c - NVIDIA GPU">NiceHash v0.5c - NVIDIA GPU</option>
 					<option v-if="mode === 'GPU'" value="Claymore Miner - AMD GPU">Claymore Miner - AMD GPU</option>
 					<option v-if="mode === 'GPU'" value="DSTM-0.6 - NVIDIA GPU">DSTM-0.6 - NVIDIA GPU</option>
-					<option v-if="mode === 'GPU'" value="EWBF-0.6 - NVIDIA GPU">EWBF-0.6 - NVIDIA GPU</option>
+					<option v-if="mode === 'GPU'" value="EWBF-0.3.4b - NVIDIA GPU">EWBF-0.3.4b - NVIDIA GPU</option>
 				</select>
 			</div>
 

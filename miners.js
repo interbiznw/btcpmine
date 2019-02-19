@@ -25,10 +25,6 @@ const dstmArguments = address => {
 
 const ewbfArguments = address => {
 	return [
-		'--algo',
-		'192_7',
-		'--pers',
-		'BTCP_PoW',
 		'--server',
 		'pool.btcprivate.org',
 		'--port',
@@ -71,7 +67,7 @@ const dstmPlatforms = {
 
 const ewbfPlatforms = {
 	win32_x64: {
-		url: 'https://btcpcommunity.com/ewbf-0_6.zip',
+		url: 'https://github.com/nanopool/ewbf-miner/releases/download/v0.3.4b/Zec.miner.0.3.4b.zip',
 		binary: 'miner.exe'
 	}
 };
@@ -113,7 +109,7 @@ module.exports = [
 		platform: dstmPlatforms
 	},
 	{
-		title: 'EWBF-0.6 - NVIDIA GPU',
+		title: 'EWBF-0.3.4b - NVIDIA GPU',
 		minerMode: 'GPU',
 		arguments: (address, cores) => [...ewbfArguments(address), '--cuda_devices', Object.keys([...new Array(cores)]).join(' ')],
 		platform: ewbfPlatforms
