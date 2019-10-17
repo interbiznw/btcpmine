@@ -117,7 +117,7 @@ module.exports = [
 	{
 		title: 'lolMiner v0.8.8',
 		minerMode: 'NVIDIA & AMD GPU',
-		arguments: address => [...lolMinerArguments(address), '--devices', Object.keys([...new Array(cores)]).join(' ')],
+		arguments: (address, cores) => [...lolMinerArguments(address), '--devices', Object.keys([...new Array(cores)]).join(' ')],
 		platform: lolMinerPlatforms
 	},
 	{
@@ -129,7 +129,7 @@ module.exports = [
 	{
 		title: 'miniZ v1.5',
 		minerMode: 'NVIDIA GPU',
-		arguments: address => [...miniZArguments(address), '--cuda-devices', Object.keys([...new Array(cores)]).join(' ')],
+		arguments: (address, cores) => [...miniZArguments(address), '--cuda-devices', Object.keys([...new Array(cores)]).join(' ')],
 		platform: miniZPlatforms
 	}
 	// {
