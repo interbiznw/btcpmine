@@ -1,18 +1,29 @@
 /* eslint camelcase: "off" */
 
-const nheqminerArguments = address => {
+const gminerArguments = address => {
 	return [
-		'-l', 'pool.btcprivate.org:2053',
-		'-u',
+		'--algo',
+		'192_7',
+		'--pers',
+		'BTCP_PoW',
+		'--server',
+		'pool.btcprivate.org',
+		'--port',
+		'2053',
+		'-user',
 		`${address}`,
-		'-p',
+		'-pass',
 		'x'
 	];
 };
 
-const dstmArguments = address => {
+const lolMinerArguments = address => {
 	return [
-		'--server',
+		'--coin',
+		'AUTO192_7',
+		'--overwritePersonal',
+		'BTCP_PoW',
+		'--pool',
 		'pool.btcprivate.org',
 		'--port',
 		'2053',
@@ -40,32 +51,41 @@ const ewbfArguments = address => {
 	];
 };
 
-const claymoreArguments = address => {
+const miniZArguments = address => {
 	return [
-		'-zpool',
-		'pool.btcprivate.org:2053',
-		'-zwal',
+		'--par',
+		'192_7',
+		'--pers',
+		'BTCP_PoW',
+		'--server',
+		'pool.btcprivate.org',
+		'--port=',
+		'2053',
+		'--user',
 		`${address}`,
-		'-zpsw',
+		'--pass',
 		'x'
 	];
 };
-
-const nheqminerPlatforms = {
+const gminerPlatforms = {
 	win32_x64: {
-		url: 'https://github.com/interbiznw/nheqminer/releases/download/0.5-c_equi_cpu/nheqminer-0.5c-equi-cpu.zip',
-		binary: 'nheqminer.exe'
+		url: 'https://github.com/develsoftware/GMinerRelease/releases/download/1.70/gminer_1_70_windows64.zip',
+		binary: 'miner.exe'
 	},
 	linux_x64: {
-		url: 'https://github.com/nicehash/nheqminer/releases/download/0.5c/Ubuntu_16_04_x64_cuda_djezo_avx_nheqminer-5c.zip',
-		binary: 'nheqminer_16_04'
+		url: 'https://github.com/develsoftware/GMinerRelease/releases/download/1.70/gminer_1_70_linux64.tar.gz',
+		binary: 'miner'
 	}
 };
 
-const dstmPlatforms = {
+const lolMinerPlatforms = {
 	win32_x64: {
-		url: 'https://github.com/nemosminer/DSTM-equihash-miner/releases/download/DSTM-0.6/zm_0.6_win.zip',
-		binary: 'zm_0.6_win/zm.exe'
+		url: 'https://github.com/Lolliedieb/lolMiner-releases/releases/download/0.8.8/lolMiner_v088_Win64.zip',
+		binary: 'lolMiner.exe'
+	},
+	linux_x64: {
+		url: 'https://github.com/Lolliedieb/lolMiner-releases/releases/download/0.8.8/lolMiner_v088_Lin64.tar.gz',
+		binary: 'lolMiner'
 	}
 };
 
@@ -76,47 +96,41 @@ const ewbfPlatforms = {
 	}
 };
 
-const claymorePlatforms = {
+const miniZPlatforms = {
 	win32_x64: {
-		url: 'https://github.com/nanopool/ClaymoreZECMiner/releases/download/v12.6/Claymore.s.ZCash.AMD.GPU.Miner.v12.6.zip',
-		binary: 'ZecMiner64.exe'
+		url: 'https://miniz.ch/?smd_process_download=1&download_id=3109',
+		binary: 'miniZ.exe'
 	},
 	linux_x64: {
-		url: 'https://github.com/nanopool/ClaymoreZECMiner/releases/download/v12.6/Claymore.s.ZCash.AMD.GPU.Miner.v12.6.-.LINUX.tar.gz',
-		binary: 'zecminer64'
+		url: 'https://miniz.ch/?smd_process_download=1&download_id=3111',
+		binary: 'miniZ'
 	}
 };
 
 module.exports = [
 	{
-		title: 'NiceHash v0.5c - CPU',
-		minerMode: 'CPU',
-		arguments: (address, cores) => [...nheqminerArguments(address), '-t', cores],
-		platform: nheqminerPlatforms
+		title: 'Gminer 1.70',
+		minerMode: 'NVIDIA & AMD GPU',
+		arguments: (address, cores) => [...gminerArguments(address), '--cuda_devices', Object.keys([...new Array(cores)]).join(' ')],
+		platform: gminerPlatforms
 	},
 	{
-		title: 'NiceHash v0.5c - NVIDIA GPU',
-		minerMode: 'GPU',
-		arguments: (address, cores) => [...nheqminerArguments(address), '-cd', Object.keys([...new Array(cores)]).join(' ')],
-		platform: nheqminerPlatforms
+		title: 'lolMiner v0.8.8',
+		minerMode: 'NVIDIA & AMD GPU',
+		arguments: address => [...lolMinerArguments(address), '--devices', Object.keys([...new Array(cores)]).join(' ')],
+		platform: lolMinerPlatforms
 	},
 	{
-		title: 'Claymore Miner - AMD GPU',
-		minerMode: 'GPU',
-		arguments: address => [...claymoreArguments(address), '-nofee', '1', '-allpools', '1'],
-		platform: claymorePlatforms
-	},
-	{
-		title: 'DSTM-0.6 - NVIDIA GPU',
-		minerMode: 'GPU',
-		arguments: (address, cores) => [...dstmArguments(address), '--dev', Object.keys([...new Array(cores)]).join(' ')],
-		platform: dstmPlatforms
-	},
-	{
-		title: 'EWBF-0.6 - NVIDIA GPU',
-		minerMode: 'GPU',
+		title: 'EWBF-0.6',
+		minerMode: 'NVIDIA GPU',
 		arguments: (address, cores) => [...ewbfArguments(address), '--cuda_devices', Object.keys([...new Array(cores)]).join(' ')],
 		platform: ewbfPlatforms
+	},
+	{
+		title: 'miniZ v1.5',
+		minerMode: 'NVIDIA GPU',
+		arguments: address => [...miniZArguments(address), '--cuda-devices', Object.keys([...new Array(cores)]).join(' ')],
+		platform: miniZPlatforms
 	}
 	// {
 	// 	title: 'Claymore-12.6 - AMD GPU',
