@@ -4,6 +4,9 @@ Current version here: https://github.com/interbiznw/btcpmine/releases
 
 
 ## Changelog
+btcpmine-v1.0.26
+* updated EWBF to 0.6 and changed parameters to support 192_7 Algo Change.
+* added GMiner, lolMiner, and miniZ miners, all 192_7 compatible.
 
 btcpmine-v1.0.24
 * added current version string on main display
