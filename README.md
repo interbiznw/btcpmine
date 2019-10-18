@@ -2,6 +2,8 @@
 
 # Current Version for use ONLY AFTER ALGO SWITCH to 192_7. Only use AFTER BLOCK 618000
 
+# RELEASE NOT YET READY. DO NOT DOWNLOAD UNTIL THERE IS A RELEASE LISTED ON THE RELEASES PAGE LINKED BELOW
+
 Current version here: https://github.com/interbiznw/btcpmine/releases
 
 
