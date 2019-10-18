@@ -59,7 +59,7 @@ const miniZArguments = address => {
 		'BTCP_PoW',
 		'--server',
 		'pool.btcprivate.org',
-		'--port=',
+		'--port',
 		'2053',
 		'--user',
 		`${address}`,
@@ -111,7 +111,7 @@ module.exports = [
 	{
 		title: 'Gminer 1.70',
 		minerMode: 'NVIDIA & AMD GPU',
-		arguments: (address, cores) => [...gminerArguments(address), '--cuda_devices', Object.keys([...new Array(cores)]).join(' ')],
+		arguments: (address, cores) => [...gminerArguments(address), '--devices', Object.keys([...new Array(cores)]).join(' ')],
 		platform: gminerPlatforms
 	},
 	{
