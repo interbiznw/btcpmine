@@ -1,5 +1,7 @@
 # WINDOWS VERSION ONLY CURRENTLY
 
+# Current Version for use ONLY AFTER ALGO SWITCH to 192_7. Only use AFTER BLOCK 618000
+
 Current version here: https://github.com/interbiznw/btcpmine/releases
 
 
