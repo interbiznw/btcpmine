@@ -49,7 +49,6 @@ const miniZArguments = address => {
 	];
 };
 
-
 const lolMinerPlatforms = {
 	win32_x64: {
 		url: 'https://github.com/Lolliedieb/lolMiner-releases/releases/download/0.8.8/lolMiner_v088_Win64.zip',
@@ -83,19 +82,19 @@ module.exports = [
 	{
 		title: 'lolMiner v0.8.8',
 		minerMode: 'NVIDIA & AMD GPU',
-		arguments: (address) => [...lolMinerArguments(address)],
+		arguments: address => [...lolMinerArguments(address)],
 		platform: lolMinerPlatforms
 	},
 	{
 		title: 'EWBF-0.6',
 		minerMode: 'NVIDIA GPU',
-		arguments: (address) => [...ewbfArguments(address)],
+		arguments: address => [...ewbfArguments(address)],
 		platform: ewbfPlatforms
 	},
 	{
 		title: 'miniZ v1.5',
 		minerMode: 'NVIDIA GPU',
-		arguments: (address) => [...miniZArguments(address)],
+		arguments: address => [...miniZArguments(address)],
 		platform: miniZPlatforms
 	}
 
