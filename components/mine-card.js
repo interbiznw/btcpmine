@@ -70,7 +70,7 @@ module.exports = Vue.component('mine-card', {
 					<button type="submit"
 						v-on:click="startMining"
 						v-if="!isMining"
-						v-bind:disabled="!validAddress"
+						
 						class="btn btn-lg btn-block btn-success"
 					>
 					<span class="oi oi-play-circle center-icon" style="top: 4px; margin-right: 3px;"></span>

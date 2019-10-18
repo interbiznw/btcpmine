@@ -6,7 +6,7 @@ let win;
 
 app.on('ready', () => {
 	win = new BrowserWindow({width: 900,
-		height: 835,
+		height: 865,
 		resizable: false,
 		icon: path.join(__dirname, 'assets/icons/png/64x64.png')
 
