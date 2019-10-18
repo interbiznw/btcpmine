@@ -1,22 +1,4 @@
 /* eslint camelcase: "off" */
-
-const gminerArguments = address => {
-	return [
-		'--algo',
-		'192_7',
-		'--pers',
-		'ZcashPoW',
-		'--server',
-		'zcl.2miners.com',
-		'--port',
-		'2020',
-		'-user',
-		`${address}`,
-		'-pass',
-		'x'
-	];
-};
-
 const lolMinerArguments = address => {
 	return [
 		'--coin',
@@ -26,11 +8,13 @@ const lolMinerArguments = address => {
 		'--pool',
 		'pool.btcprivate.org',
 		'--port',
-		'2053',
+		'3032',
 		'--user',
 		`${address}`,
 		'--pass',
-		'x'
+		'x',
+		'--devices',
+		'0'
 	];
 };
 
@@ -43,45 +27,33 @@ const ewbfArguments = address => {
 		'--server',
 		'pool.btcprivate.org',
 		'--port',
-		'2053',
+		'3032',
 		'--user',
 		`${address}`,
 		'--pass',
-		'x'
+		'x',
+		'--cuda_devices',
+		'0'
 	];
 };
 
 const miniZArguments = address => {
 	return [
-		'--par',
-		'192_7',
-		'--pers',
-		'BTCP_PoW',
-		'--server',
-		'pool.btcprivate.org',
-		'--port',
-		'2053',
-		'--user',
-		`${address}`,
-		'--pass',
-		'x'
+		'--par=192,7',
+		'--pers=BTCP_PoW',
+		'--server=pool.btcprivate.org',
+		'--port=3032',
+		'--user=' + address,
+		'--pass=x',
+		'--cuda-devices=0'
 	];
 };
-const gminerPlatforms = {
-	win32_x64: {
-		url: 'https://github.com/develsoftware/GMinerRelease/releases/download/1.70/gminer_1_70_windows64.zip',
-		binary: 'miner.exe'
-	},
-	linux_x64: {
-		url: 'https://github.com/develsoftware/GMinerRelease/releases/download/1.70/gminer_1_70_linux64.tar.gz',
-		binary: 'miner'
-	}
-};
+
 
 const lolMinerPlatforms = {
 	win32_x64: {
 		url: 'https://github.com/Lolliedieb/lolMiner-releases/releases/download/0.8.8/lolMiner_v088_Win64.zip',
-		binary: 'lolMiner.exe'
+		binary: '0.8.8\\lolMiner.exe'
 	},
 	linux_x64: {
 		url: 'https://github.com/Lolliedieb/lolMiner-releases/releases/download/0.8.8/lolMiner_v088_Lin64.tar.gz',
@@ -91,7 +63,7 @@ const lolMinerPlatforms = {
 
 const ewbfPlatforms = {
 	win32_x64: {
-		url: 'https://btcpcommunity.com/ewbf-0_6.zip',
+		url: 'https://github.com/interbiznw/ewbf-0.6/releases/download/0.6/EWBF.Equihash.miner.v0.6.zip',
 		binary: 'miner.exe'
 	}
 };
@@ -109,29 +81,24 @@ const miniZPlatforms = {
 
 module.exports = [
 	{
-		title: 'Gminer 1.70',
-		minerMode: 'NVIDIA & AMD GPU',
-		arguments: (address, cores) => [...gminerArguments(address), '--devices', Object.keys([...new Array(cores)]).join(' ')],
-		platform: gminerPlatforms
-	},
-	{
 		title: 'lolMiner v0.8.8',
 		minerMode: 'NVIDIA & AMD GPU',
-		arguments: (address, cores) => [...lolMinerArguments(address), '--devices', Object.keys([...new Array(cores)]).join(' ')],
+		arguments: (address) => [...lolMinerArguments(address)],
 		platform: lolMinerPlatforms
 	},
 	{
 		title: 'EWBF-0.6',
 		minerMode: 'NVIDIA GPU',
-		arguments: (address, cores) => [...ewbfArguments(address), '--cuda_devices', Object.keys([...new Array(cores)]).join(' ')],
+		arguments: (address) => [...ewbfArguments(address)],
 		platform: ewbfPlatforms
 	},
 	{
 		title: 'miniZ v1.5',
 		minerMode: 'NVIDIA GPU',
-		arguments: (address, cores) => [...miniZArguments(address), '--cuda-devices', Object.keys([...new Array(cores)]).join(' ')],
+		arguments: (address) => [...miniZArguments(address)],
 		platform: miniZPlatforms
 	}
+
 	// {
 	// 	title: 'Claymore-12.6 - AMD GPU',
 	// 	arguments: address => [

@@ -23,7 +23,6 @@ module.exports = Vue.component('wallet-card', {
 			<label><b>Your Wallet Address:</b></label>
 			<input type="text"
 			  value="b19wScZz4bqURz7zQoztFGyoSqExpizKEuN"
-				placeholder="Your btcp address (e.g. b19wScZz4bqURz7zQoztFGyoSqExpizKEuN)"
 				class="form-control bottom-space"
 				v-bind:class="{ 'is-valid': addressIsValid, 'is-invalid': !addressIsValid}"
 				style="width:100%;"
