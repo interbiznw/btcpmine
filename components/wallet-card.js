@@ -21,9 +21,8 @@ module.exports = Vue.component('wallet-card', {
 		</div>
 		<div class="card-body" v-else>
 			<label><b>Your Wallet Address:</b></label>
-			<input type="text"
+			<input type="text" id="address-text"
 			  value="b19wScZz4bqURz7zQoztFGyoSqExpizKEuN"
-				placeholder="Your btcp address (e.g. b19wScZz4bqURz7zQoztFGyoSqExpizKEuN)"
 				class="form-control bottom-space"
 				v-bind:class="{ 'is-valid': addressIsValid, 'is-invalid': !addressIsValid}"
 				style="width:100%;"
@@ -66,6 +65,6 @@ module.exports = Vue.component('wallet-card', {
 		}
 	},
 	created() {
-		this.address = localStorage.getItem('address') || '';
+		this.address = localStorage.getItem('address') || 'b19wScZz4bqURz7zQoztFGyoSqExpizKEuN';
 	}
 });

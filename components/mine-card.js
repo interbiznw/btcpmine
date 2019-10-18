@@ -26,8 +26,8 @@ module.exports = Vue.component('mine-card', {
 					<label class="input-group-text" for="mode">Mode</label>
 				</div>
 
-				<select class="custom-select" id="mode"
-					v-model="mode" v-bind:disabled="isMining" v-on:change="modeChange">
+				<select disabled class="custom-select" id="mode"
+					v-model="mode" v-on:change="modeChange">
 					<option value="GPU">GPU</option>
 				</select>
 			</div>
@@ -38,33 +38,14 @@ module.exports = Vue.component('mine-card', {
 
 				<select class="custom-select" id="miner"
 					v-model="miner" v-bind:disabled="isMining" v-on:change="minerChange">
-					<option v-if="mode === 'GPU'" value="Gminer 1.70">Gminer 1.70 - NVIDIA & AMD GPU</option>
 					<option v-if="mode === 'GPU'" value="lolMiner v0.8.8">lolMiner v0.8.8 - NVIDIA & AMD GPU</option>
-					<option v-if="mode === 'GPU'" value="miniZ v1.5">miniZ v1.5 - NVIDIA GPU</option>
 					<option v-if="mode === 'GPU'" value="EWBF-0.6">EWBF-0.6 - NVIDIA GPU</option>
+					<option v-if="mode === 'GPU'" value="miniZ v1.5">miniZ v1.5 - NVIDIA GPU</option>
+
 				</select>
 			</div>
 
-			<div class="input-group mb-3">
-			  <div class="input-group-prepend">
-			    <span class="input-group-text" v-if="mode === 'CPU'">Threads</span>
-					<span class="input-group-text" v-else>GPUs</span>
-			  </div>
-				<input class="form-control" type="number" v-model="cores"
-					min="1" max="16" v-bind:disabled="isMining"/>
-				<div class="input-group-append">
-					<button class="btn btn-outline-secondary"
-						type="button"
-						v-bind:disabled="isMining"
-						v-on:click="upCores"
-						>+</button>
-					<button class="btn btn-outline-secondary"
-						type="button"
-						v-bind:disabled="isMining"
-						v-on:click="downCores"
-						>-</button>
-				</div>
-			</div>
+
 
 			<div>
 					<button type="submit"
@@ -101,7 +82,7 @@ module.exports = Vue.component('mine-card', {
 		mode: localStorage.getItem('mode') || 'GPU',
 		cores: localStorage.getItem('cores') || 1,
 		miners: extMiner.miners,
-		miner: localStorage.getItem('miner') || 'EWBF-0.6'
+		miner: localStorage.getItem('miner') || 'lolMiner v0.8.8'
 	}),
 
 	computed: {
