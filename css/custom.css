@@ -25,3 +25,12 @@ button.link:hover {
 	height: 31px;
 	background-color: rgb(204, 204, 204);
 }
+
+.card {
+
+	background-color: #c3c3c3;
+}
+.btn-outline-primary {
+    color: #272d63;
+    border-color: #272d63;
+}
