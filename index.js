@@ -12,7 +12,7 @@ app.on('ready', () => {
 
 	});
 	win.setMenu(null);
-	// win.openDevTools({detached: true});
+  // win.openDevTools({detached: true});
 	win.loadURL(url.format({
 		pathname: path.join(__dirname, 'index.html'),
 		protocol: 'file:',

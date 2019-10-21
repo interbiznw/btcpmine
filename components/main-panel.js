@@ -9,10 +9,12 @@ module.exports = Vue.component('main-panel', {
 			  v-bind:mineroutput="minerOutput"
 			  v-bind:mining="isMining"
 			  v-on:address-change="addressChange"
+				v-on:worker-change="workerChange"
 			></Wallet-Card>
 
 			<Mine-Card
 			  v-bind:address="address"
+				v-bind:worker="worker"
 			  v-on:update="minerUpdate"
 			  v-on:start="isMining = true"
 			  v-on:stop="isMining = false"
@@ -28,7 +30,8 @@ module.exports = Vue.component('main-panel', {
 		isMining: false,
 		downloaded: false,
 		minerOutput: {},
-		address: ''
+		address: '',
+		worker: ''
 	}),
 	methods: {
 		minerUpdate(output, minerOutput) {
@@ -37,6 +40,9 @@ module.exports = Vue.component('main-panel', {
 		},
 		addressChange(address) {
 			this.address = address;
+		},
+		workerChange(worker) {
+			this.worker = worker;
 		}
 	},
 	components: {

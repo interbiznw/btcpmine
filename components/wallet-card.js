@@ -29,22 +29,29 @@ module.exports = Vue.component('wallet-card', {
 				v-model.trim="address"
 				v-bind:disabled="mining"
 			 >
+			 <label><b>Your Worker Name:</b></label>
+			 <input type="text" id="worker-text"
+			 value="OCMWORKER"
+			 v-model.trim="worker"
+			 style="width:100%;"
+			 ><br><br>
 
        <label><b>Suggested Wallets:</b></label>
        <button
 				 v-on:click="openExternal('https://paperwallet.btcprivate.org/')"
-         class="btn btn-lg btn-block btn-outline-primary">
+         class="btn btn-lg btn-block btn-outline-secondary">
 				 BTCP Paperwallet</button>
 				 <button
 					v-on:click="openExternal('https://github.com/BTCPrivate/electrum-btcp/releases')"
-					 class="btn btn-lg btn-block btn-outline-primary">
+					 class="btn btn-lg btn-block btn-outline-secondary">
 					BTCP Electrum lite wallet</button>
 		 </div>
 	</div>
 	`,
 	props: ['mineroutput', 'mining'],
 	data: () => ({
-		address: ''
+		address: '',
+		worker: ''
 	}),
 	computed: {
 		addressIsValid() {
@@ -62,9 +69,13 @@ module.exports = Vue.component('wallet-card', {
 	watch: {
 		address() {
 			this.$emit('address-change', this.address);
+		},
+		worker() {
+			this.$emit('worker-change', this.worker);
 		}
 	},
 	created() {
 		this.address = localStorage.getItem('address') || 'b19wScZz4bqURz7zQoztFGyoSqExpizKEuN';
+		this.worker = localStorage.getItem('worker') || 'OCMworker';
 	}
 });

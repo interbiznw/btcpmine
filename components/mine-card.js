@@ -70,7 +70,7 @@ module.exports = Vue.component('mine-card', {
 		</div>
 	</div>
 	`,
-	props: ['address'],
+	props: ['address', 'worker'],
 	data: () => ({
 		output: '',
 		isMining: false,
@@ -107,13 +107,14 @@ module.exports = Vue.component('mine-card', {
 		},
 		async startMining() {
 			localStorage.setItem('address', this.address);
+			localStorage.setItem('worker', this.worker);
 			localStorage.setItem('mode', this.mode);
 			localStorage.setItem('cores', this.cores);
 			localStorage.setItem('miner', this.miner);
 
 			let lastPing = 0;
 
-			const parser = await extMiner.start(this.address, this.miner, this.cores);
+			const parser = await extMiner.start(this.address, this.worker, this.miner, this.cores);
 
 			console.log(parser);
 

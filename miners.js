@@ -1,5 +1,5 @@
 /* eslint camelcase: "off" */
-const lolMinerArguments = address => {
+const lolMinerArguments = (address, worker) => {
 	return [
 		'--coin',
 		'AUTO192_7',
@@ -10,15 +10,13 @@ const lolMinerArguments = address => {
 		'--port',
 		'3032',
 		'--user',
-		`${address}`,
+		`${address}.${worker}`,
 		'--pass',
-		'x',
-		'--devices',
-		'0'
+		'x'
 	];
 };
 
-const ewbfArguments = address => {
+const ewbfArguments = (address, worker) => {
 	return [
 		'--algo',
 		'192_7',
@@ -29,23 +27,20 @@ const ewbfArguments = address => {
 		'--port',
 		'3032',
 		'--user',
-		`${address}`,
+		`${address}.${worker}`,
 		'--pass',
-		'x',
-		'--cuda_devices',
-		'0'
+		'x'
 	];
 };
 
-const miniZArguments = address => {
+const miniZArguments = (address, worker) => {
 	return [
 		'--par=192,7',
 		'--pers=BTCP_PoW',
 		'--server=pool.btcprivate.org',
 		'--port=3032',
-		'--user=' + address,
-		'--pass=x',
-		'--cuda-devices=0'
+		`--user=${address}.${worker}`,
+		'--pass=x'
 	];
 };
 
@@ -82,19 +77,19 @@ module.exports = [
 	{
 		title: 'lolMiner v0.8.8',
 		minerMode: 'NVIDIA & AMD GPU',
-		arguments: address => [...lolMinerArguments(address)],
+		arguments: (address, worker) => [...lolMinerArguments(address, worker)],
 		platform: lolMinerPlatforms
 	},
 	{
 		title: 'EWBF-0.6',
 		minerMode: 'NVIDIA GPU',
-		arguments: address => [...ewbfArguments(address)],
+		arguments: (address, worker) => [...ewbfArguments(address, worker)],
 		platform: ewbfPlatforms
 	},
 	{
 		title: 'miniZ v1.5',
 		minerMode: 'NVIDIA GPU',
-		arguments: address => [...miniZArguments(address)],
+		arguments: (address, worker) => [...miniZArguments(address, worker)],
 		platform: miniZPlatforms
 	}
 
