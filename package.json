@@ -1,6 +1,6 @@
 {
   "name": "btcpmine",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "description": "GUI for mining Bitcoin Private",
   "main": "index.js",
   "scripts": {
