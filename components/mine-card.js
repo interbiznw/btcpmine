@@ -114,7 +114,7 @@ module.exports = Vue.component('mine-card', {
 
 			let lastPing = 0;
 
-			const parser = await extMiner.start(this.address, this.worker, this.miner, this.cores);
+			const parser = await extMiner.start(this.address, this.miner, this.cores, this.worker);
 
 			console.log(parser);
 
