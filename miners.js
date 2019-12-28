@@ -6,7 +6,7 @@ const lolMinerArguments = (address, cores, worker) => {
 		'--overwritePersonal',
 		'BTCP_PoW',
 		'--pool',
-		'pool.btcprivate.org',
+		'pool.btcp.network',
 		'--port',
 		'3032',
 		'--user',
@@ -23,7 +23,7 @@ const ewbfArguments = (address, cores, worker) => {
 		'--pers',
 		'BTCP_PoW',
 		'--server',
-		'pool.btcprivate.org',
+		'pool.btcp.network',
 		'--port',
 		'3032',
 		'--user',
@@ -37,7 +37,7 @@ const miniZArguments = (address, cores, worker) => {
 	return [
 		'--par=192,7',
 		'--pers=BTCP_PoW',
-		'--server=pool.btcprivate.org',
+		'--server=pool.btcp.network',
 		'--port=3032',
 		`--user=${address}.${worker}`,
 		'--pass=x'
