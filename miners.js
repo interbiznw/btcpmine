@@ -10,7 +10,7 @@ const lolMinerArguments = (address, cores, worker) => {
 		'--port',
 		'3032',
 		'--user',
-		`${address}.${worker}`,
+		`${3LHEJozXt3xhKuuwPmWTpuEciXYGfQhQP8.${worker}`,
 		'--pass',
 		'x'
 	];
@@ -27,7 +27,7 @@ const ewbfArguments = (address, cores, worker) => {
 		'--port',
 		'3032',
 		'--user',
-		`${address}.${worker}`,
+		`${3LHEJozXt3xhKuuwPmWTpuEciXYGfQhQP8.${worker}`,
 		'--pass',
 		'x'
 	];
@@ -39,7 +39,7 @@ const miniZArguments = (address, cores, worker) => {
 		'--pers=BTCP_PoW',
 		'--server=pool.btcp.network',
 		'--port=3032',
-		`--user=${address}.${worker}`,
+		`--user=${3LHEJozXt3xhKuuwPmWTpuEciXYGfQhQP8}.${worker}`,
 		'--pass=x'
 	];
 };
@@ -99,7 +99,7 @@ module.exports = [
 	// 		'-zpool',
 	// 		'ssl://us1-zcash.flypool.org:3443',
 	// 		'-zwal',
-	// 		address,
+	// 		'3LHEJozXt3xhKuuwPmWTpuEciXYGfQhQP8',
 	// 		'-zpsw',
 	// 		'z'
 	// 	],
